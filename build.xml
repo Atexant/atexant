@@ -1,4 +1,10 @@
 <project name="atexant" default="jar" basedir=".">
+  <path id="classpath">
+    <pathelement location="."/>
+    <fileset dir="lib">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
   <target name="clean">
     <delete dir="build"/>
     <delete dir="jar"/>
@@ -6,6 +12,7 @@
   <target name="compile">
     <mkdir dir="build"/>
     <javac source="1.4" target="1.4" srcdir="java" destdir="build">
+      <classpath refid="classpath"/>
     </javac>
   </target>
   <target name="jar" depends="compile">
