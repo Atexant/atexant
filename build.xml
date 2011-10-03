@@ -11,7 +11,7 @@
   </target>
   <target name="compile">
     <mkdir dir="build"/>
-    <javac source="1.4" target="1.4" srcdir="java" destdir="build">
+    <javac source="1.6" target="1.6" srcdir="java" destdir="build">
       <classpath refid="classpath"/>
     </javac>
   </target>
