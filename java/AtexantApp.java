@@ -1,22 +1,42 @@
 
+
 import java.util.*;
+import java.sql.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class AtexantApp
 {
-    public static void main(String[] args)
+
+    public static void main(String[] args) throws Exception
     {
-	if (args.length < 1)
-	    return;
-	Lemmatisation l = new Lemmatisation();
-	l.init();
-	System.out.println("Initialization completed!!!");
-	HashMap m = new HashMap();
-	l.process(args[0], m);
-	Iterator it = m.entrySet().iterator();
-	while (it.hasNext())
-	{
-	    Map.Entry e = (Map.Entry)it.next();
-	    System.out.println("" + e.getKey() + " " + e.getValue());
-	}
+        
+        saveAllPagesInDb(args[0]);
+        
+        return;
+
+    }
+    
+    public static void saveAllPagesInDb(String filename) throws Exception {
+        final BlockingQueue< WikipediaPage > q = new LinkedBlockingQueue<WikipediaPage>();
+        
+        WikipediaPageConsumer consumer = new WikipediaPageConsumer(q);
+        
+        Thread consumerThread = new Thread(consumer);
+        consumerThread.start();
+        
+        WikipediaParser.parse(filename, new WikipediaPageHandler() {
+
+            @Override
+            public void handle(WikipediaPage page) {
+                try {
+                    q.put(page);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
+        consumerThread.interrupt();
     }
 }
