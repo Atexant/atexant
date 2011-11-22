@@ -12,10 +12,11 @@ public class MySQLAccess {
     private MySQLAccess() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         
-        String host = "localhost";
-        String user = "root";
-        String password = "76d18e98n";
-        String dbname = "atexant";
+        
+        String host = AtexantApp.localProps.getProperty("mysql_host");
+        String user = AtexantApp.localProps.getProperty("mysql_user");
+        String password = AtexantApp.localProps.getProperty("mysql_password");
+        String dbname = AtexantApp.localProps.getProperty("mysql_dbname");
         
         connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + dbname + "?user=" + user + "&password=" + password);
     }
@@ -25,7 +26,7 @@ public class MySQLAccess {
     }
     
     public ResultSet executeSql(String sql, String[] params) throws Exception {
-        return executeSql(sql, null, false);
+        return executeSql(sql, params, false);
     }
     
     public ResultSet executeSql(String sql, String[] params, boolean isDataModifying) throws Exception {
@@ -46,6 +47,15 @@ public class MySQLAccess {
             return statement.executeQuery();
         }
     }
+    
+    public void close() {
+        try {
+            statement.close();
+            connection.close();
+        } catch(Exception e) {
+            
+        }
+    }
  
     public static MySQLAccess getInstance() throws Exception {
         if (instance == null) {
@@ -58,6 +68,9 @@ public class MySQLAccess {
         
         return instance;
     }
-    
+
+    public static MySQLAccess createInstance() throws Exception {
+        return new MySQLAccess();
+    }
     
 }

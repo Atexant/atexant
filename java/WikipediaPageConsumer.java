@@ -8,14 +8,27 @@ import java.util.concurrent.BlockingQueue;
  */
 public class WikipediaPageConsumer implements Runnable {
     BlockingQueue< WikipediaPage > queue;
+    MySQLAccess db;
     public WikipediaPageConsumer(BlockingQueue< WikipediaPage > q) {
         queue = q;
     }
     
     public void run() {
+        try {
+            db = MySQLAccess.createInstance();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return;
+        }
+        
         while (true) {
             try {
                 WikipediaPage page = queue.take();
+                
+                if (page.id == -1) {
+                    break;
+                }
+                
                 handlePage(page);
             } catch(InterruptedException e) {
                 break;
@@ -32,7 +45,7 @@ public class WikipediaPageConsumer implements Runnable {
         params[3] = page.isRedirect ? "1" : "0";
         
         try {
-            MySQLAccess.getInstance().executeSql("INSERT INTO wiki_pages (id, title, raw_text, is_redirect) VALUES(?, ?, ?, ?)", params, true);
+            db.executeSql("INSERT INTO wiki_pages (id, title, raw_text, is_redirect) VALUES(?, ?, ?, ?)", params, true);
         } catch(Exception e) {
             e.printStackTrace();
         }
