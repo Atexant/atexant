@@ -181,22 +181,10 @@ public class AtexantApp
                                 break;
                             }
                             
-                            int curIndex = 0;
+                            ArrayList< String > links = page.getLinks();
                             
-                            while (curIndex < page.rawText.length()) {
-                                curIndex = page.rawText.indexOf("[[", curIndex);
-                                
-                                if (curIndex < 0) {
-                                    break;
-                                }
-                                
-                                int nextIndex = Math.min(page.rawText.indexOf("|", curIndex), page.rawText.indexOf("]]", curIndex));
-                                
-                                if (nextIndex < 0) {
-                                    break;
-                                }
-                                
-                                String link = page.rawText.substring(curIndex+2, nextIndex);                            
+                           
+                            for(String link : links) {                     
                                 try {
                                     String[] params = new String[1];
                                     params[0] = link;
@@ -216,8 +204,6 @@ public class AtexantApp
                                         e.printStackTrace();
                                     }
                                 }
-                                
-                                curIndex = nextIndex;
                             }
                                 
                         }
