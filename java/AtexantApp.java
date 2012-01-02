@@ -42,8 +42,13 @@ public class AtexantApp
             processLinksInDb();
             return;
         }
-        
-        return;
+
+        if (args[0].equalsIgnoreCase("debug")) {
+	    wikiDebug(args[1]);
+	    return;
+	}
+
+	return;
     }
     
     public static void processRedirectsInDb() throws Exception {
@@ -92,14 +97,10 @@ public class AtexantApp
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            
-
                         }
                     } catch (InterruptedException e) {
-                        
                     } catch (Exception ee) {
                         ee.printStackTrace();
-                        
                     } finally {
                         if (db!= null) {
                             db.close();
@@ -238,5 +239,20 @@ public class AtexantApp
             p.id = -1;
             q.put(p);
         }
+    }
+
+    private static void wikiDebug(String fileName) throws Exception
+    {
+	WikipediaParser.parse(fileName, new WikipediaPageHandler(){
+		private int count = 0;
+
+		public void handle(WikipediaPage page)
+		{
+		    System.out.println("" + page);
+		    count++;
+		    if (count > 100)
+			System.exit(0);
+		}
+	    });
     }
 }
