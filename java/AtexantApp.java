@@ -182,7 +182,7 @@ public class AtexantApp
                                 break;
                             }
                             
-                            ArrayList< String > links = page.getLinks();
+                            ArrayList< String > links = WikiTextParser.extractLinks(page.rawText);
                             
                            
                             for(String link : links) {                     
