@@ -138,7 +138,7 @@ public class AtexantApp
         int threadsNum = 5;
         
         for (int i = 0; i < threadsNum; i++) {
-            new Thread(new WikipediaPageConsumer(q)).start();
+            new Thread(new WikipediaPageConsumer(q, new MysqlWikipediaPageStorage())).start();
         }
         
         WikipediaParser.parse(filename, new WikipediaPageHandler() {
@@ -223,16 +223,11 @@ public class AtexantApp
             }).start();
         }
         
-        ResultSet pages = MySQLAccess.getInstance().executeSql("SELECT id, raw_text FROM wiki_pages WHERE is_redirect = 0");
+        WikipediaPageStorage storage = new MysqlWikipediaPageStorage();
         
-        while (pages.next()) {
-            WikipediaPage p = new WikipediaPage();
-            
-            p.id = pages.getInt(1);
-            p.rawText = pages.getString(2);
-            
-            q.put(p);
-        }      
+        for (WikipediaPage p : storage.getAll()) {
+            q.add(p);
+        }
         
         for (int i = 0; i < threadsNum; i++) {
             WikipediaPage p = new WikipediaPage();
