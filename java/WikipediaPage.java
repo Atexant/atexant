@@ -4,6 +4,10 @@ public class WikipediaPage {
     public String title = "";
     public String rawText = "";
     public boolean isRedirect = false;
+    public String redirectPageTitle = null;
+    public Integer redirectPageId = null;
+    public long offset = -1;
+    public boolean isLoadedFromDb = false;
 
     public String toString()
     {

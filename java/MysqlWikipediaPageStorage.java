@@ -1,7 +1,7 @@
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.Iterable;
+import java.util.Iterator;
 
 
 public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
@@ -13,42 +13,104 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
     
     @Override
     public void savePage(WikipediaPage page) {
-        String[] params = new String[4];
-        params[0] = page.id.toString();
-        params[1] = page.title;
-        params[2] = page.rawText;
-        params[3] = page.isRedirect ? "1" : "0";
         
         try {
-            db.executeSql("INSERT INTO wiki_pages (id, title, raw_text, is_redirect) VALUES(?, ?, ?, ?)", params, true);
+            if (!page.isLoadedFromDb) {
+                String[] params = new String[5];
+                params[0] = page.id.toString();
+                params[1] = page.title;
+                params[2] = page.redirectPageTitle;
+                if (page.redirectPageId != null) {
+                    params[3] = page.redirectPageId.toString();
+                } else {
+                    params[3] = null;
+                }
+                params[4] = Long.toString(page.offset);
+                
+                db.executeSql("INSERT INTO wiki_pages (id, title, redirect_page_title, redirect_page_id, file_offset) VALUES(?, ?, ?, ?, ?)", params, true);
+            } else {
+                String[] params = new String[5];
+                params[0] = page.title;
+                params[1] = page.redirectPageTitle;
+                params[2] = page.redirectPageId.toString();
+                params[3] = Long.toString(page.offset);
+                params[4] = page.id.toString();
+                
+                db.executeSql("UPDATE wiki_pages SET title = ?, redirect_page_title = ?, redirect_page_id = ?, file_offset = ? WHERE id = ?", params, true);
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }        
     }
     
-    private List< WikipediaPage > getAllBySql(String sqlPart) throws Exception {
-        List< WikipediaPage > result = new ArrayList<WikipediaPage>();
+    public static WikipediaPage buildPageByResultSet(ResultSet set) throws Exception {
+        WikipediaPage page = buildNew();
+        page.id = set.getInt("id");
+        page.title = set.getString("title");
+        page.redirectPageTitle = set.getString("redirect_page_title");
+        page.redirectPageId = set.getInt("redirect_page_id");
+        page.offset = set.getLong("file_offset");
         
-        String sql = "SELECT id, title, is_redirect, raw_text FROM wiki_pages " + sqlPart;
+        page.isRedirect = page.redirectPageTitle != null;
+        page.isLoadedFromDb = true;
+
+        return page;
+    } 
+    
+    private class MysqlResultIterable implements Iterable {
+        private ResultSet result = null;
+        
+        public MysqlResultIterable(ResultSet res) {
+            result = res;
+        }
+        
+        @Override
+        public Iterator<WikipediaPage> iterator() {
+            final ResultSet res = result;
+            return new Iterator<WikipediaPage>() {
+                
+                @Override
+                public boolean hasNext() {
+                    try {
+                        return !res.isLast();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return false;
+                }
+
+                @Override
+                public WikipediaPage next() {
+                    try {
+                        res.next();
+                        return buildPageByResultSet(res);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return buildNew();
+                }
+
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException("Not supported yet.");
+                }
+            };
+        }       
+        
+    }
+    
+    private Iterable< WikipediaPage > getAllBySql(String sqlPart) throws Exception {
+        
+        String sql = "SELECT id, title, redirect_page_title, redirect_page_id, file_offset  FROM wiki_pages " + sqlPart;
         
         ResultSet set = db.executeSql(sql);
         
-        while (set.next()) {
-            WikipediaPage page = buildNew();
-            page.id = set.getInt(1);
-            page.title = set.getString(2);
-            page.isRedirect = set.getBoolean(3);
-            page.rawText = set.getString(4);
-            
-            result.add(page);
-        }
-        
-        return result;
+        return new MysqlResultIterable(set);
 
     }
     
     private WikipediaPage getOneBySql(String sql) throws Exception {
-        return getAllBySql(sql).get(0);
+        return getAllBySql(sql).iterator().next();
     }
     
     @Override
@@ -62,10 +124,9 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
     }
 
     @Override
-    public List<WikipediaPage> getAll() throws Exception {
+    public Iterable<WikipediaPage> getAll() throws Exception {
         return getAllBySql("");
     }
 
-    
-    
+        
 }

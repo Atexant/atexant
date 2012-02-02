@@ -28,215 +28,90 @@ public class AtexantApp
             return;
         }
         
-        if (args[0].equalsIgnoreCase("saveInDb")) {
-            saveAllPagesInDb(args[1]);
+        final AtexantApp app = new AtexantApp();
+        
+        if (args[0].equalsIgnoreCase("proccessFile")) {
+            if (args.length < 3) {
+                return;
+            }
+            
+            WikipediaPageHandler handler = null;
+            
+            String handlerCmd = args[2];
+            
+            if (handlerCmd.equalsIgnoreCase("saveAllPagesInDb")) {
+                handler = new WikipediaPageHandler() {
+
+                    @Override
+                    public void handle(WikipediaPage page) {
+                        try {
+                            if (page.isRedirect) {
+                                int baseNameStarts = page.rawText.indexOf("[[");
+                                int baseNameEnds = page.rawText.indexOf("]]");
+
+                                if (baseNameStarts != -1 && baseNameEnds != -1) {
+                                    String baseName = page.rawText.substring(baseNameStarts+2, baseNameEnds);
+                                    page.redirectPageTitle = baseName;
+                                }
+                            }
+                            app.getStorage().savePage(page);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+            } else {
+                System.out.println("wrong wikipedia page handler (3 parameter)");
+                return;
+            }
+            
+            long offset = 0;
+            
+            if (args.length > 3) {
+                offset = Long.parseLong(args[3]);
+            }
+            
+            app.proccessXmlFile(args[1], handler, offset);
             return;
         }
         
         if (args[0].equalsIgnoreCase("processRedirects")) {
-            processRedirectsInDb();
+            app.processRedirectsInDb();
             return;
         }
         
-        if (args[0].equalsIgnoreCase("processLinks")) {
-            processLinksInDb();
-            return;
-        }
-
         if (args[0].equalsIgnoreCase("debug")) {
-	    wikiDebug(args[1]);
+	    app.wikiDebug(args[1]);
 	    return;
 	}
 
 	return;
     }
     
-    public static void processRedirectsInDb() throws Exception {
-        int threadsNum = 10;
-        Thread[] processors = new Thread[threadsNum];        
-        final BlockingQueue< WikipediaPage > q = new LinkedBlockingQueue<WikipediaPage>();
-        
-        for (int i = 0; i < threadsNum; i++) {
-            processors[i] = new Thread(new Runnable() {
-
-                @Override
-                public void run()  {
-                    MySQLAccess db = null;                   
-                    try {
-                        db = MySQLAccess.createInstance();
-                        
-                        while (true) {
-                            WikipediaPage page = q.take();
-                            if (page.id == -1) {
-                                break;
-                            }
-                            
-                            int baseNameStarts = page.rawText.indexOf("[[");
-                            int baseNameEnds = page.rawText.indexOf("]]");
-                            
-                            if (baseNameStarts == -1 || baseNameEnds == -1) {
-                                continue;
-                            }
-                            
-                            String baseName = page.rawText.substring(baseNameStarts+2, baseNameEnds);
-                            
-                            String params[] = new String[1];
-                            params[0] = baseName;
-                            ResultSet res = null;
-                            try {
-                                res = db.executeSql("SELECT id FROM wiki_pages WHERE title = ? and is_redirect = 0", params);
-                                
-                                if (res.next()) {
-                                    Integer id = res.getInt(1);
-                                    
-                                    params = new String[2];
-                                    params[0] = page.id.toString();
-                                    params[1] = id.toString();
-                                    db.executeSql("INSERT INTO wiki_redirects (id, page_id) VALUES(?, ?)", params, true);
-                                }                            
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } catch (InterruptedException e) {
-                    } catch (Exception ee) {
-                        ee.printStackTrace();
-                    } finally {
-                        if (db!= null) {
-                            db.close();
-                        }
-                    }
-                    
-                }
-            });
-            
-            processors[i].start();
-        }
-       
-        
-        ResultSet redirects = MySQLAccess.getInstance().executeSql("SELECT id, raw_text FROM wiki_pages WHERE is_redirect = 1");
-        
-        while (redirects.next()) {
-            WikipediaPage p = new WikipediaPage();
-            
-            p.id = redirects.getInt(1);
-            p.rawText = redirects.getString(2);
-            
-            q.put(p);
-        }
-        
-        for (int i = 0; i < threadsNum; i++) {
-            WikipediaPage p = new WikipediaPage();
-            p.id = -1;
-            q.put(p);
-        }
+    public WikipediaPageStorage getStorage() throws Exception {
+        return new MysqlWikipediaPageStorage();
     }
     
-    public static void saveAllPagesInDb(String filename) throws Exception {
-        final BlockingQueue< WikipediaPage > q = new LinkedBlockingQueue<WikipediaPage>();
-        
-        int threadsNum = 5;
-        
-        for (int i = 0; i < threadsNum; i++) {
-            new Thread(new WikipediaPageConsumer(q, new MysqlWikipediaPageStorage())).start();
-        }
-        
-        WikipediaParser.parse(filename, new WikipediaPageHandler() {
-
-            @Override
-            public void handle(WikipediaPage page) {
-                try {
-                    q.put(page);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
+    public void processRedirectsInDb() throws Exception {
+        WikipediaPageStorage st = getStorage();
+        for (WikipediaPage p : st.getAll()) {
+            if (!p.isRedirect) {
+                continue;
             }
-        });
-
-        for (int i = 0; i < threadsNum; i++) {
-            WikipediaPage p = new WikipediaPage();
-            p.id = -1;
-            q.put(p);
+            
+            WikipediaPage redirect = st.findByTitle(p.redirectPageTitle);
+            
+            p.redirectPageId = redirect.id;
+            
+            st.savePage(p);
         }
-        
     }
     
-    public static void processLinksInDb() throws Exception {
-        final BlockingQueue< WikipediaPage > q = new LinkedBlockingQueue<WikipediaPage>();
-        
-        int threadsNum = 5;
-        
-        for (int i = 0; i < threadsNum; i++) {
-            new Thread(new Runnable() {
-
-                @Override
-                public void run()  {
-                    MySQLAccess db = null;                   
-                    try {
-                        db = MySQLAccess.createInstance();
-                        
-                        while (true) {
-                            WikipediaPage page = q.take();
-                            
-                            if (page.id == -1) {
-                                break;
-                            }
-                            
-                            ArrayList< String > links = WikiTextParser.extractLinks(page.rawText);
-                            
-                           
-                            for(String link : links) {                     
-                                try {
-                                    String[] params = new String[1];
-                                    params[0] = link;
-                                    
-                                    ResultSet res = db.executeSql("SELECT id FROM wiki_pages WHERE title = ? and is_redirect = 0", params);
-
-                                    if (res.next()) {
-                                        Integer id = res.getInt(1);
-
-                                        params = new String[2];
-                                        params[0] = page.id.toString();
-                                        params[1] = id.toString();
-                                        db.executeSql("INSERT INTO wiki_links (id, page_id) VALUES(?, ?)", params, true);
-                                    }  
-                                } catch (Exception e) {
-                                    if (!e.getClass().toString().contains("MySQLIntegrityConstraintViolationException")) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                                
-                        }
-                    } catch (InterruptedException e) {
-                        
-                    } catch (Exception ee) {
-                        ee.printStackTrace();
-                        
-                    } finally {
-                        if (db!= null) {
-                            db.close();
-                        }
-                    }
-                    
-                }
-            }).start();
-        }
-        
-        WikipediaPageStorage storage = new MysqlWikipediaPageStorage();
-        
-        for (WikipediaPage p : storage.getAll()) {
-            q.add(p);
-        }
-        
-        for (int i = 0; i < threadsNum; i++) {
-            WikipediaPage p = new WikipediaPage();
-            p.id = -1;
-            q.put(p);
-        }
+    public void proccessXmlFile(String filename, WikipediaPageHandler handler, long offset) throws Exception {
+        WikipediaParser.parse(filename, handler, offset);
     }
-
-    private static void wikiDebug(String fileName) throws Exception
+    
+    private void wikiDebug(String fileName) throws Exception
     {
 	WikipediaParser.parse(fileName, new WikipediaPageHandler(){
 		private int count = 0;

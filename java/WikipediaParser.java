@@ -1,4 +1,7 @@
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.channels.FileChannel;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -15,8 +18,9 @@ public class WikipediaParser extends DefaultHandler {
     private WikipediaPageHandler pageHandler;
     
     private WikipediaPage currentPage;
+    private FileChannel currentChannel =  null;
     
-    public WikipediaParser(WikipediaPageHandler handler) {
+    public WikipediaParser(WikipediaPageHandler handler, FileChannel channel) {
         isInPage = false;
         isInTitle = false;
         isInId = false;
@@ -24,6 +28,17 @@ public class WikipediaParser extends DefaultHandler {
         nodeBuffer = null;
         elementsStack = new Stack< String >();
         pageHandler = handler;
+        currentChannel = channel;
+    }
+    
+    private long getCurrentOffset() {
+        try {
+            return currentChannel.position();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return -1;
     }
     
     @Override
@@ -38,6 +53,7 @@ public class WikipediaParser extends DefaultHandler {
             isInPage = true;
             
             currentPage = new WikipediaPage();
+            currentPage.offset = getCurrentOffset() - "<page>".length();
         }
         
         if (raw_name.equals("title")) {
@@ -128,14 +144,24 @@ public class WikipediaParser extends DefaultHandler {
     }
     
     
-    public static DefaultHandler newInstance(WikipediaPageHandler handler) {
-        return new WikipediaParser(handler);
+    public static DefaultHandler newInstance(WikipediaPageHandler handler, FileChannel fc) {
+        return new WikipediaParser(handler, fc);
+    }
+    
+    public static void parse(String filename, WikipediaPageHandler handler, long offset) throws Exception {
+        FileInputStream fis = new FileInputStream(filename);
+        fis.skip(offset);
+        
+        
+        XMLReader reader = makeXMLReader();
+        reader.setContentHandler(newInstance(handler, fis.getChannel()));
+        
+       
+        reader.parse(new InputSource(fis));
     }
     
     public static void parse(String filename, WikipediaPageHandler handler) throws Exception {
-        XMLReader reader = makeXMLReader();
-        reader.setContentHandler(newInstance(handler));
-        reader.parse(filename);
+        WikipediaParser.parse(filename, handler, 0);
     }
 
 }

@@ -1,4 +1,4 @@
 
-public interface WikipediaPageHandler {
-    public void handle(WikipediaPage page);
+public abstract class WikipediaPageHandler {
+    abstract public void handle(WikipediaPage page);
 }

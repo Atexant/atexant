@@ -20,7 +20,7 @@ public class WikipediaPageConsumer implements Runnable {
         while (true) {
             try {
                 WikipediaPage page = queue.take();
-                
+                              
                 if (page.id == -1) {
                     break;
                 }
@@ -35,7 +35,8 @@ public class WikipediaPageConsumer implements Runnable {
     
     public void handlePage(WikipediaPage page) {
         try {
-            storage.savePage(page);
+            //getting title of base page if it's redirect
+
         } catch (Exception e) {
             e.printStackTrace();
         }
