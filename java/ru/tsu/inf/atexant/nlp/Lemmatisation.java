@@ -1,3 +1,4 @@
+package ru.tsu.inf.atexant.nlp;
 
 import java.util.*;
 import edu.stanford.nlp.pipeline.*;

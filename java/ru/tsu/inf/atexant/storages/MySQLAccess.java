@@ -1,3 +1,6 @@
+package ru.tsu.inf.atexant.storages;
+
+import ru.tsu.inf.atexant.AtexantApp;
 
 import java.sql.*;
 /**

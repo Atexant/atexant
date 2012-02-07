@@ -1,3 +1,4 @@
+package ru.tsu.inf.atexant;
 
 public class WikipediaPage {
     public Integer id = null;

@@ -1,3 +1,6 @@
+package ru.tsu.inf.atexant.dump;
+
+import ru.tsu.inf.atexant.WikipediaPage;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

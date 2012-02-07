@@ -1,4 +1,7 @@
+package ru.tsu.inf.atexant;
 
+import ru.tsu.inf.atexant.storages.*;
+import ru.tsu.inf.atexant.dump.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;

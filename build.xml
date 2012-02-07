@@ -19,7 +19,7 @@
     <mkdir dir="jar"/>
     <jar jarfile="jar/atexant.jar">
       <manifest>
-        <attribute name="Main-Class" value="AtexantApp"/>
+        <attribute name="Main-Class" value="ru.tsu.inf.atexant.AtexantApp"/>
       </manifest>
       <fileset dir="./build">
         <include name="**/*.class"/>

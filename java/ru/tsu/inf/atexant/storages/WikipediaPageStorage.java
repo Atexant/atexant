@@ -1,3 +1,7 @@
+package ru.tsu.inf.atexant.storages;
+
+import ru.tsu.inf.atexant.WikipediaPage;
+
 import java.lang.Iterable;
 
 public abstract class WikipediaPageStorage {

@@ -1,3 +1,6 @@
+package ru.tsu.inf.atexant.storages;
+
+import ru.tsu.inf.atexant.WikipediaPage;
 
 import java.sql.ResultSet;
 import java.lang.Iterable;
@@ -99,33 +102,33 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
         
     }
     
-    private Iterable< WikipediaPage > getAllBySql(String sqlPart) throws Exception {
+    private Iterable< WikipediaPage > getAllBySql(String sqlPart, String[] params) throws Exception {
         
         String sql = "SELECT id, title, redirect_page_title, redirect_page_id, file_offset  FROM wiki_pages " + sqlPart;
         
-        ResultSet set = db.executeSql(sql);
+        ResultSet set = db.executeSql(sql, params);
         
         return new MysqlResultIterable(set);
 
     }
     
-    private WikipediaPage getOneBySql(String sql) throws Exception {
-        return getAllBySql(sql).iterator().next();
+    private WikipediaPage getOneBySql(String sql, String[] params) throws Exception {
+        return getAllBySql(sql, params).iterator().next();
     }
     
     @Override
     public WikipediaPage findById(int id) throws Exception {
-        return getOneBySql("WHERE id = " + new Integer(id).toString() );
+        return getOneBySql("WHERE id = ?", new String[]{ new Integer(id).toString() });
     }
     
     @Override
     public WikipediaPage findByTitle(String title) throws Exception {
-        return getOneBySql("WHERE title = '" + title + "'");
+        return getOneBySql("WHERE title = ?", new String[]{ title });
     }
 
     @Override
     public Iterable<WikipediaPage> getAll() throws Exception {
-        return getAllBySql("");
+        return getAllBySql("", null);
     }
 
         

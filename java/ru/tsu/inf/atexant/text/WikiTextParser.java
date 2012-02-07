@@ -1,3 +1,4 @@
+package ru.tsu.inf.atexant.text;
 
 import java.util.ArrayList;
 
