@@ -6,7 +6,6 @@ import ru.tsu.inf.atexant.dump.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.sql.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -14,6 +13,36 @@ public class AtexantApp
 {
     
     public static Properties localProps;
+    
+    private static class WikipediaPageSaver extends WikipediaPageHandler {
+        private WikipediaPageStorage storage = null;
+        
+        public WikipediaPageSaver(WikipediaPageStorage a) {
+            storage = a;
+        }
+        
+        @Override
+        public void handle(WikipediaPage page) {
+            //redirects preprocessing
+            if (page.isRedirect) {
+                int baseNameStarts = page.rawText.indexOf("[[");
+                int baseNameEnds = page.rawText.indexOf("]]");
+
+                if (baseNameStarts != -1 && baseNameEnds != -1) {
+                    String baseName = page.rawText.substring(baseNameStarts+2, baseNameEnds);
+                    page.redirectPageTitle = baseName;
+                }
+            }
+
+            try {
+                storage.savePage(page);
+            } catch (WikipediaPageStorageException e) {
+                AtexantApp.log("page "+ page.id.toString() +" was not saved successfully probably because it's already in storage");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } 
+    }
     
     public static void main(String[] args) throws Exception
     {
@@ -43,26 +72,7 @@ public class AtexantApp
             String handlerCmd = args[2];
             
             if (handlerCmd.equalsIgnoreCase("saveAllPagesInDb")) {
-                handler = new WikipediaPageHandler() {
-
-                    @Override
-                    public void handle(WikipediaPage page) {
-                        try {
-                            if (page.isRedirect) {
-                                int baseNameStarts = page.rawText.indexOf("[[");
-                                int baseNameEnds = page.rawText.indexOf("]]");
-
-                                if (baseNameStarts != -1 && baseNameEnds != -1) {
-                                    String baseName = page.rawText.substring(baseNameStarts+2, baseNameEnds);
-                                    page.redirectPageTitle = baseName;
-                                }
-                            }
-                            app.getStorage().savePage(page);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
+                handler = new WikipediaPageSaver(app.getStorage());
             } else {
                 System.out.println("wrong wikipedia page handler (3 parameter)");
                 return;
@@ -102,16 +112,34 @@ public class AtexantApp
                 continue;
             }
             
-            WikipediaPage redirect = st.findByTitle(p.redirectPageTitle);
+            try {
+                WikipediaPage redirect = st.findByTitle(p.redirectPageTitle);
+                p.redirectPageId = redirect.id;
+            } catch (WikipediaPageStorageException e) {
+                log("redirected page was not found for " + p.id.toString());
+                continue;
+            } catch (Exception e) {
+                int a = 0;
+                e.printStackTrace();
+            }
             
-            p.redirectPageId = redirect.id;
-            
-            st.savePage(p);
+            try {
+                st.savePage(p);
+            } catch (WikipediaPageStorageException e) {
+                log("redirecting page" + p.id.toString() + " was not saved successfully");
+                continue;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
     
     public void proccessXmlFile(String filename, WikipediaPageHandler handler, long offset) throws Exception {
         WikipediaParser.parse(filename, handler, offset);
+    }
+    
+    public static void log(String message) {
+        System.out.println(message);
     }
     
     private void wikiDebug(String fileName) throws Exception

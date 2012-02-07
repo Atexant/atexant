@@ -4,6 +4,7 @@ import ru.tsu.inf.atexant.WikipediaPage;
 
 import java.sql.ResultSet;
 import java.lang.Iterable;
+import java.sql.SQLException;
 import java.util.Iterator;
 
 
@@ -15,7 +16,7 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
     }
     
     @Override
-    public void savePage(WikipediaPage page) {
+    public void savePage(WikipediaPage page) throws Exception {
         
         try {
             if (!page.isLoadedFromDb) {
@@ -41,9 +42,9 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
                 
                 db.executeSql("UPDATE wiki_pages SET title = ?, redirect_page_title = ?, redirect_page_id = ?, file_offset = ? WHERE id = ?", params, true);
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }        
+        } catch (SQLException e) {
+            throw new WikipediaPageStorageException(e.getMessage()); 
+        }       
     }
     
     public static WikipediaPage buildPageByResultSet(ResultSet set) throws Exception {
@@ -69,12 +70,22 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
         
         @Override
         public Iterator<WikipediaPage> iterator() {
+            try {
+                result.first();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             final ResultSet res = result;
             return new Iterator<WikipediaPage>() {
-                
+                private Boolean isFirst = true;
                 @Override
                 public boolean hasNext() {
                     try {
+                        if (isFirst) {
+                            isFirst = false;
+                            return res.next();
+                        }
                         return !res.isLast();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -85,8 +96,10 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
                 @Override
                 public WikipediaPage next() {
                     try {
+                        WikipediaPage ret = buildPageByResultSet(res);
                         res.next();
-                        return buildPageByResultSet(res);
+                        
+                        return ret;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -106,14 +119,28 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
         
         String sql = "SELECT id, title, redirect_page_title, redirect_page_id, file_offset  FROM wiki_pages " + sqlPart;
         
-        ResultSet set = db.executeSql(sql, params);
+        ResultSet set = null;
+        
+        try {
+        
+            set = db.executeSql(sql, params);
+            
+        } catch (SQLException e) {
+            throw new WikipediaPageStorageException(e.getMessage());
+        }
         
         return new MysqlResultIterable(set);
 
     }
     
     private WikipediaPage getOneBySql(String sql, String[] params) throws Exception {
-        return getAllBySql(sql, params).iterator().next();
+        Iterator< WikipediaPage > it = getAllBySql(sql, params).iterator();
+        
+        if (!it.hasNext()) {
+            throw new WikipediaPageStorageException("");
+        }
+        
+        return it.next();
     }
     
     @Override
@@ -130,6 +157,4 @@ public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
     public Iterable<WikipediaPage> getAll() throws Exception {
         return getAllBySql("", null);
     }
-
-        
 }

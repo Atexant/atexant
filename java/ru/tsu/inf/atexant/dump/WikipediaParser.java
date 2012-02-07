@@ -36,7 +36,8 @@ public class WikipediaParser extends DefaultHandler {
     
     private long getCurrentOffset() {
         try {
-            return currentChannel.position();
+            //current real position minus approximate buffer length
+            return Math.max(currentChannel.position() - (long)(1<<13), 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
