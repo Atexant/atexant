@@ -62,7 +62,7 @@ public class AtexantApp
         
         final AtexantApp app = new AtexantApp();
         
-        if (args[0].equalsIgnoreCase("proccessFile")) {
+        if (args[0].equalsIgnoreCase("processFile")) {
             if (args.length < 3) {
                 return;
             }

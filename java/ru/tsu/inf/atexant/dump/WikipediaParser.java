@@ -3,6 +3,7 @@ package ru.tsu.inf.atexant.dump;
 import ru.tsu.inf.atexant.WikipediaPage;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.FileChannel;
 import org.xml.sax.*;
@@ -37,7 +38,7 @@ public class WikipediaParser extends DefaultHandler {
     private long getCurrentOffset() {
         try {
             //current real position minus approximate buffer length
-            return Math.max(currentChannel.position() - (long)(1<<13), 0);
+            return Math.max(currentChannel.position() - (long)(1<<14), 0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,16 +153,66 @@ public class WikipediaParser extends DefaultHandler {
         return new WikipediaParser(handler, fc);
     }
     
+    private static class FakeRootInputStream extends InputStream {
+        private InputStream stream;
+        int readBytes = 0;
+        String tag = "<root>";
+        public FakeRootInputStream(InputStream is) {
+            stream = is;
+        }
+        @Override
+        public int read() throws IOException {
+            if (readBytes < tag.length()) {
+                return tag.charAt(readBytes++);
+            }
+            
+            if (readBytes == tag.length() && tag.equalsIgnoreCase("</root>")) {
+                return -1;
+            }
+            
+            int ch = stream.read();
+            if (ch == -1) {
+                
+                tag = "</root>";
+                readBytes = 0;
+                return read();
+            }
+            return ch;
+        }
+    }
+    
     public static void parse(String filename, WikipediaPageHandler handler, long offset) throws Exception {
         FileInputStream fis = new FileInputStream(filename);
-        fis.skip(offset);
+        InputStream is = fis;
         
+        if (offset > 0) {
+            fis.skip(offset);
+
+            //reading until closest page-tag closing
+            while (true) {
+                int justRead = fis.read();
+
+                if (justRead == -1) {
+                    return;
+                }
+
+                if (justRead == '<' && fis.read() == '/') {
+                    byte[] tag = new byte[5];
+                    fis.read(tag);
+                    if ("page>".equalsIgnoreCase(new String(tag))) {
+                        break;
+                    }
+                }
+            }
+            
+            is = new FakeRootInputStream(is);
+        }
         
         XMLReader reader = makeXMLReader();
-        reader.setContentHandler(newInstance(handler, fis.getChannel()));
         
+        reader.setContentHandler(newInstance(handler, fis.getChannel()));
        
-        reader.parse(new InputSource(fis));
+        reader.parse(new InputSource(is));
     }
     
     public static void parse(String filename, WikipediaPageHandler handler) throws Exception {
