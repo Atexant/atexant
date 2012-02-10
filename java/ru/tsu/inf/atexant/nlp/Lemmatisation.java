@@ -5,19 +5,21 @@ import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.*;
 import edu.stanford.nlp.ling.CoreAnnotations.*;
 import edu.stanford.nlp.ling.*;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 
-class Lemmatisation
+public class Lemmatisation
 {
     private StanfordCoreNLP pipeline ;
 
     public void init()
     {
         Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma");
+        props.put("annotators", "tokenize, ssplit, parse");
         pipeline = new StanfordCoreNLP(props);
     }
 
-    public void process(String text, Map res)
+    public void process(String text, Tree tree)
     {
         // create an empty Annotation just with the given text
         Annotation document = new Annotation(text);
@@ -30,8 +32,11 @@ class Lemmatisation
 	{
 	    // traversing the words in the current sentence
 	    // a CoreLabel is a CoreMap with additional token-specific methods
-	    for (CoreLabel token: sentence.get(TokensAnnotation.class)) 
-		res.put(token.get(TextAnnotation.class), token.get(LemmaAnnotation.class));
+	    tree = sentence.get(TreeAnnotation.class);
         }
+        
+  
     }
+    
+    
 }

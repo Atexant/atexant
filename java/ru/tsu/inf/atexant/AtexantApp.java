@@ -1,13 +1,17 @@
 package ru.tsu.inf.atexant;
 
+import edu.stanford.nlp.trees.SimpleTree;
+import edu.stanford.nlp.trees.Tree;
 import ru.tsu.inf.atexant.storages.*;
 import ru.tsu.inf.atexant.dump.*;
+import ru.tsu.inf.atexant.nlp.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import ru.tsu.inf.atexant.nlp.Lemmatisation;
 
 public class AtexantApp
 {
@@ -46,6 +50,16 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
+        Lemmatisation t = new Lemmatisation();
+        t.init();
+        long start = System.currentTimeMillis();
+        t.process("We want the world and we want it now", new SimpleTree());
+        long end = System.currentTimeMillis();
+        
+        System.out.println(end-start);
+        
+        System.exit(0);
+        
         localProps = new Properties();
         
         try {
