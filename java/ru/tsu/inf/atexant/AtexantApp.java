@@ -52,12 +52,14 @@ public class AtexantApp
     {
         Lemmatisation t = new Lemmatisation();
         t.init();
-        long start = System.currentTimeMillis();
-        t.process("We want the world and we want it now", new SimpleTree());
-        long end = System.currentTimeMillis();
-        
-        System.out.println(end-start);
-        
+	for(int k = 0;k < 10;k++)
+	{
+	    long start = System.currentTimeMillis();
+	    t.process("We want the world and we want it now", new SimpleTree());
+	    long end = System.currentTimeMillis();
+	    System.out.println("Attempt #" + k + ", time: " + (end-start));
+	}
+
         System.exit(0);
         
         localProps = new Properties();
