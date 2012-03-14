@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import ru.tsu.inf.atexant.nlp.Lemmatisation;
+import ru.tsu.inf.atexant.text.WikiTextParser;
 
 public class AtexantApp
 {
@@ -50,16 +51,7 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
-        Lemmatisation t = new Lemmatisation();
-        t.init();
-        long start = System.currentTimeMillis();
-        t.process("We want the world and we want it now", new SimpleTree());
-        long end = System.currentTimeMillis();
-        
-        System.out.println(end-start);
-        
-        System.exit(0);
-        
+       
         localProps = new Properties();
         
         try {
@@ -87,6 +79,19 @@ public class AtexantApp
             
             if (handlerCmd.equalsIgnoreCase("saveAllPagesInDb")) {
                 handler = new WikipediaPageSaver(app.getStorage());
+            } else if(handlerCmd.equalsIgnoreCase("parse")) {
+                handler = new WikipediaPageHandler() {
+
+                    @Override
+                    public void handle(WikipediaPage page) {
+                        if (page.isRedirect) {
+                            return;
+                        }
+                        
+                        List<String > result = WikiTextParser.getInstance().getUsefullPiecesOfText(page);
+                        System.exit(0);
+                    }
+                };
             } else {
                 System.out.println("wrong wikipedia page handler (3 parameter)");
                 return;
@@ -112,7 +117,7 @@ public class AtexantApp
 	    return;
 	}
 
-	return;
+        return;
     }
     
     public WikipediaPageStorage getStorage() throws Exception {
