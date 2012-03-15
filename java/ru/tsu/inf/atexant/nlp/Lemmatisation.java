@@ -5,8 +5,12 @@ import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.*;
 import edu.stanford.nlp.ling.CoreAnnotations.*;
 import edu.stanford.nlp.ling.*;
+import edu.stanford.nlp.trees.GrammaticalStructure;
+import edu.stanford.nlp.trees.GrammaticalStructureFactory;
+import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
+import edu.stanford.nlp.trees.TreebankLanguagePack;
 
 public class Lemmatisation
 {
@@ -33,6 +37,12 @@ public class Lemmatisation
 	    // traversing the words in the current sentence
 	    // a CoreLabel is a CoreMap with additional token-specific methods
 	    tree = sentence.get(TreeAnnotation.class);
+            TreebankLanguagePack tlp = new PennTreebankLanguagePack();
+            GrammaticalStructureFactory f = tlp.grammaticalStructureFactory();
+            
+            GrammaticalStructure s = f.newGrammaticalStructure(tree);
+            
+            int a = 0;
         }
         
   

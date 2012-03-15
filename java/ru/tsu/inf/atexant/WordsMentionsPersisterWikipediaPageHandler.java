@@ -19,6 +19,9 @@ public class WordsMentionsPersisterWikipediaPageHandler extends WikipediaPageHan
     
     @Override
     public void handle(WikipediaPage page) {
+        if (page.isRedirect) {
+            return;
+        }
         for ( String word : nlp.getNormalizedWordsFromPiecesOfText(parser.getUsefullPiecesOfText(page))) {
             storage.persistMention(word, page.id);
         }

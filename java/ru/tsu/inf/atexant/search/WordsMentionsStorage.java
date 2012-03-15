@@ -10,6 +10,8 @@ public abstract class WordsMentionsStorage {
     public Iterable< Integer > getRelatedDocumentsForWords(List< String > words) {
         List< Integer > result = new LinkedList< Integer >();
         
+        
+        
         return result;
     }
 }

@@ -5,6 +5,7 @@ import edu.stanford.nlp.trees.Tree;
 import ru.tsu.inf.atexant.storages.*;
 import ru.tsu.inf.atexant.dump.*;
 import ru.tsu.inf.atexant.nlp.*;
+import ru.tsu.inf.atexant.search.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class AtexantApp
         
         @Override
         public void handle(WikipediaPage page) {
+
             //redirects preprocessing
             if (page.isRedirect) {
                 int baseNameStarts = page.rawText.indexOf("[[");
@@ -51,6 +53,24 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
+        
+            Lemmatisation t = new Lemmatisation();
+
+        t.init();
+  	
+       long start = System.currentTimeMillis();
+	  	
+       t.process("I want to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them", new SimpleTree());
+	  	
+       long end = System.currentTimeMillis();
+	  	
+        
+	  	
+        System.out.println(end-start);
+	  	
+       
+	  	
+        System.exit(0);
        
         localProps = new Properties();
         
@@ -79,19 +99,8 @@ public class AtexantApp
             
             if (handlerCmd.equalsIgnoreCase("saveAllPagesInDb")) {
                 handler = new WikipediaPageSaver(app.getStorage());
-            } else if(handlerCmd.equalsIgnoreCase("parse")) {
-                handler = new WikipediaPageHandler() {
-
-                    @Override
-                    public void handle(WikipediaPage page) {
-                        if (page.isRedirect) {
-                            return;
-                        }
-                        
-                        List<String > result = WikiTextParser.getInstance().getUsefullPiecesOfText(page);
-                        System.exit(0);
-                    }
-                };
+            } else if(handlerCmd.equalsIgnoreCase("wordMentions")) {
+                handler = new WordsMentionsPersisterWikipediaPageHandler(new FileSystemWordsMentionsStorage());
             } else {
                 System.out.println("wrong wikipedia page handler (3 parameter)");
                 return;
