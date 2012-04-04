@@ -2,9 +2,6 @@ package ru.tsu.inf.atexant.nlp;
 
 import java.util.*;
 
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTree;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeNode;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeEdge;
 
 import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.*;
@@ -119,57 +116,6 @@ public class NLPAccess {
     
     public Collection< TypedDependency > getSentenceDependencies(String sentenceText) {
         return getSentencesDependecies(sentenceText).get(0);
-    }
-    
-    private SentenceTreeNode findInMapByIdOrCreateSentenceTreeNode(Map< String, SentenceTreeNode > m, String id) {
-        if (m.containsKey(id)) {
-            return m.get(id);
-        }
-        
-        SentenceTreeNode node = new SentenceTreeNode(id);
-        
-        m.put(id, node);
-        
-        return node;
-    }
-    
-    private SentenceTree buildSentenceTreeByTypedDependecies(Collection< TypedDependency > deps) {
-        SentenceTree result = new SentenceTree();
-        
-        Map< String, SentenceTreeNode > m = new HashMap< String, SentenceTreeNode>();
-        
-        for (TypedDependency dependency : deps) {
-           SentenceTreeNode gov = findInMapByIdOrCreateSentenceTreeNode(m, dependency.gov().label().toString());
-           SentenceTreeNode dep = findInMapByIdOrCreateSentenceTreeNode(m, dependency.dep().label().toString());
-           String dependencyType = dependency.reln().getShortName();
-           
-           if (dependencyType.equalsIgnoreCase("root")) {
-               result.setRoot(dep);
-               continue;  
-           }
-           
-           gov.addChidlrenEdge(dep, dependencyType);
-           
-        }
-        
-        for (SentenceTreeNode node : m.values()) {
-            result.addNode(node);
-        }
-        
-        return result;
-    } 
-    
-    public SentenceTree buildSentenceTree(String sentenceText) {
-        return buildSentenceTreeByTypedDependecies(getSentenceDependencies(sentenceText));
-    }
-    
-    public List< SentenceTree> buildSentencesTrees(String text) {
-        List< SentenceTree > result = new LinkedList<SentenceTree>();
-        for (Collection< TypedDependency > deps : getSentencesDependecies(text)) {
-            result.add(buildSentenceTreeByTypedDependecies(deps));
-        }
-        
-        return result;
     }
 
 }

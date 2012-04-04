@@ -14,6 +14,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import ru.tsu.inf.atexant.nlp.Lemmatisation;
 import ru.tsu.inf.atexant.nlp.sentences.SentenceTree;
+import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeBuilder;
 import ru.tsu.inf.atexant.text.WikiTextParser;
 
 public class AtexantApp
@@ -55,7 +56,7 @@ public class AtexantApp
     public static void main(String[] args) throws Exception
     {
         
-	SentenceTree gr = NLPAccess.getInstance().buildSentenceTree("I want to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them");
+	SentenceTree gr = SentenceTreeBuilder.getInstance().buildSentenceTree("I want to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them");
 	  	
         System.exit(0);
        
