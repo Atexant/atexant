@@ -2,10 +2,12 @@ package ru.tsu.inf.atexant.nlp.sentences;
 
 import java.util.LinkedList;
 import java.util.List;
+import ru.tsu.inf.atexant.nlp.WordToken;
 
 public class SentenceTreeNode {
     private String word;
-    private String wordId = null;
+    private Integer wordId = null;
+    private WordToken wt = null;
     private List< SentenceTreeEdge > childrenEdges = null;
     private SentenceTreeEdge edgeFromParent = null;
     
@@ -15,7 +17,7 @@ public class SentenceTreeNode {
         if (u.contains("-")) {
             String[] a = u.split("-");
             word = a[0];
-            wordId = a[1];
+            wordId = new Integer(a[1]);
         } else {
             word = u;
         }
@@ -27,9 +29,21 @@ public class SentenceTreeNode {
         return word;
     }
     
-    public String getWordId() {
+    public Integer getWordId() {
         return wordId;
     } 
+
+    public void setWordToken(WordToken token) {
+        wt = token;
+    }
+    
+    public String getNodePOS() {
+        return wt.getPOS();
+    }
+    
+    public String getNodeLemma() {
+        return wt.getLemma();
+    }
     
     private void setEdgeFromParent(SentenceTreeEdge edge) {
         edgeFromParent = edge;

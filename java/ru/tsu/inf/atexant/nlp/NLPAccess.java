@@ -23,7 +23,7 @@ public class NLPAccess {
     private void init()
     {
         Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, parse");
+        props.put("annotators", "tokenize, ssplit, parse, pos, lemma");
         pipeline = new StanfordCoreNLP(props);
     }
     
@@ -74,6 +74,36 @@ public class NLPAccess {
         return result;
     }
     
+    private Iterable< CoreLabel > getCoreLabelsOfWordsInText(String text) {
+        Annotation document = new Annotation(text);
+        pipeline.annotate(document);
+
+        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+               
+        ArrayList< CoreLabel > result = new ArrayList<CoreLabel>();
+        
+        String p;
+        
+        for(CoreMap sentence: sentences) 
+	{
+            for (CoreLabel token: sentence.get(TokensAnnotation.class))  {                        
+                result.add(token);
+            }
+        }
+        
+        return result;
+    }
+    
+    public ArrayList< WordToken > getWordTokensFromText(String text) {
+        ArrayList< WordToken > result = new ArrayList<WordToken>();
+        
+        for (CoreLabel cl : getCoreLabelsOfWordsInText(text)) {
+            result.add(new WordToken(cl));
+        }
+        
+        return result;
+    }
+    
     public Iterable< String > getNormalizedWordsFromPiecesOfText(List< String> pieces) {
         StringBuilder text = new StringBuilder();
         
@@ -85,11 +115,7 @@ public class NLPAccess {
         return getNormalizedWordsFromText(text.toString());
     }
     
-    public double sentencesSimilarity(String sentence1, String Sentence2) {
-        return 0.0;
-    }
-    
-    public List< Collection< TypedDependency > > getSentencesDependecies(String text)
+    public List< Collection< SentenceDependency > > getSentencesDependecies(String text)
     {
         Annotation document = new Annotation(text);
         pipeline.annotate(document);
@@ -100,7 +126,7 @@ public class NLPAccess {
         
         Tree tree;
         
-        List< Collection< TypedDependency > > result = new LinkedList< Collection< TypedDependency > >();
+        List< Collection< SentenceDependency > > result = new LinkedList< Collection< SentenceDependency > >();
         
         for(CoreMap sentence: sentences) 
 	{
@@ -108,14 +134,24 @@ public class NLPAccess {
             
             GrammaticalStructure structure = grammaticalStructureFactory.newGrammaticalStructure(tree);
             
-            result.add(structure.typedDependenciesCollapsedTree());
+            Collection< SentenceDependency > current = new LinkedList<SentenceDependency> ();
+            
+            for (TypedDependency td : structure.typedDependenciesCollapsedTree()) {
+                current.add(new CoreNLPSentenceDependency(td));
+            }
+            
+            result.add(current);
         }
         
         return result;
     }
     
-    public Collection< TypedDependency > getSentenceDependencies(String sentenceText) {
+    public Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
         return getSentencesDependecies(sentenceText).get(0);
     }
-
+    
+    public double getWordsSemanticSimilarityByWordnet(String word1, String word2) {
+        return 0.0;
+    }
+    
 }

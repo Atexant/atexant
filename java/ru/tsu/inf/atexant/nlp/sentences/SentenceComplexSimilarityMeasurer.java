@@ -11,10 +11,30 @@ package ru.tsu.inf.atexant.nlp.sentences;
 public class SentenceComplexSimilarityMeasurer extends SentenceSimilarityMeasurer {
     private SentenceSimilarityMeasurer semanticMeasurer = new SentenceSemanticSimilarityMeasurer();
     private SentenceSimilarityMeasurer syntacticMeasurer = new SentenceSyntacticSimilarityMeasurer();
+    private double semanticWeight = 0.5;
+    private double syntaticWeight = 0.5;
+    
+    public SentenceComplexSimilarityMeasurer() {
+        
+    }
+    
+    
+    public SentenceComplexSimilarityMeasurer(double sem) {
+        semanticWeight = sem;
+        
+    }
+    
+    public void setSemanticWeight(double v) throws Exception {
+        if (v < 0 || v > 1.0) {
+            throw new Exception("out of bounds");
+        }
+        semanticWeight = v;
+        syntaticWeight = 1.0-v;
+    }
     
     @Override
     public double getSimilarityOfSentences(Sentence a, Sentence b) {
-        return (semanticMeasurer.getSimilarityOfSentences(a, b) + syntacticMeasurer.getSimilarityOfSentences(a, b))/2.0;
+        return semanticMeasurer.getSimilarityOfSentences(a, b) * semanticWeight + syntacticMeasurer.getSimilarityOfSentences(a, b) * syntaticWeight;
     }
     
 }

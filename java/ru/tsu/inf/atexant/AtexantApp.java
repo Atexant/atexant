@@ -1,7 +1,5 @@
 package ru.tsu.inf.atexant;
 
-import edu.stanford.nlp.trees.SimpleTree;
-import edu.stanford.nlp.trees.Tree;
 import ru.tsu.inf.atexant.storages.*;
 import ru.tsu.inf.atexant.dump.*;
 import ru.tsu.inf.atexant.nlp.*;
@@ -10,12 +8,9 @@ import ru.tsu.inf.atexant.search.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import ru.tsu.inf.atexant.nlp.Lemmatisation;
+import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeWithWordTokensBuilder;
 import ru.tsu.inf.atexant.nlp.sentences.SentenceTree;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeBuilder;
-import ru.tsu.inf.atexant.text.WikiTextParser;
+
 
 public class AtexantApp
 {
@@ -56,7 +51,8 @@ public class AtexantApp
     public static void main(String[] args) throws Exception
     {
         
-	SentenceTree gr = SentenceTreeBuilder.getInstance().buildSentenceTree("I want to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them");
+        SentenceTreeWithWordTokensBuilder builder = new SentenceTreeWithWordTokensBuilder();
+	SentenceTree gr = builder.buildSentenceTree("I was wanting to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them");
 	  	
         System.exit(0);
        
