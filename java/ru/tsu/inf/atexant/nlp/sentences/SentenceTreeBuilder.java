@@ -5,7 +5,7 @@
 package ru.tsu.inf.atexant.nlp.sentences;
 
 import java.util.*;
-import ru.tsu.inf.atexant.nlp.NLPAccess;
+import ru.tsu.inf.atexant.nlp.CoreNLPAccess;
 import ru.tsu.inf.atexant.nlp.SentenceDependency;
 
 public class SentenceTreeBuilder {
@@ -78,10 +78,10 @@ public class SentenceTreeBuilder {
     }
 
     private List< Collection< SentenceDependency > > getSentencesDependencies(String sentenceText) {
-        return NLPAccess.getInstance().getSentencesDependecies(sentenceText);
+        return CoreNLPAccess.getInstance().getSentencesDependecies(sentenceText);
     }
     
     private Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
-        return NLPAccess.getInstance().getSentenceDependencies(sentenceText);
+        return CoreNLPAccess.getInstance().getSentenceDependencies(sentenceText);
     }
 }

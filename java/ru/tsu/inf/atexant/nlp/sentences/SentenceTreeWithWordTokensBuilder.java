@@ -5,7 +5,7 @@
 package ru.tsu.inf.atexant.nlp.sentences;
 
 import java.util.ArrayList;
-import ru.tsu.inf.atexant.nlp.NLPAccess;
+import ru.tsu.inf.atexant.nlp.CoreNLPAccess;
 import ru.tsu.inf.atexant.nlp.WordToken;
 
 /**
@@ -27,7 +27,7 @@ public class SentenceTreeWithWordTokensBuilder extends SentenceTreeBuilder {
 
     @Override
     public SentenceTree buildSentenceTree(String sentenceText) {
-        posTags = NLPAccess.getInstance().getWordTokensFromText(sentenceText);
+        posTags = CoreNLPAccess.getInstance().getWordTokensFromText(sentenceText);
         return super.buildSentenceTree(sentenceText);
     }  
     

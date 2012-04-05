@@ -51,9 +51,8 @@ public class AtexantApp
     public static void main(String[] args) throws Exception
     {
         
-        SentenceTreeWithWordTokensBuilder builder = new SentenceTreeWithWordTokensBuilder();
-	SentenceTree gr = builder.buildSentenceTree("I was wanting to find an online application that I can put on that server that will give Users access to view the raw XML files without being able to edit them");
-	  	
+        double res = WordNetSimilarityMeasurer.getInstance().getSimilarity(new WordToken("go", "VV"), new WordToken("run", "VV"));
+          	
         System.exit(0);
        
         localProps = new Properties();

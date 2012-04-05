@@ -4,29 +4,31 @@
  */
 package ru.tsu.inf.atexant.nlp;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-
 /**
  *
  * @author sufix
  */
 public class WordToken {
-    private String word = null;
-    protected CoreLabel token = null;
+    protected String word = null;
+    protected String pos = null;
+    protected String lemma = null;
+    
+    protected WordToken() {
+        
+    }
     
     public WordToken(String w) {
         word = w;
     }
     
-    public WordToken(String w, CoreLabel t) {
+    public WordToken(String w, String p) {
         this(w);
-        token = t;
+        pos = p;
     }
     
-    public WordToken(CoreLabel t) {
-        token = t;
-        word = t.get(CoreAnnotations.TextAnnotation.class);
+    public WordToken(String w, String p, String l) {
+        this(w, p);
+        lemma = l;
     }
     
     public String getWord() {
@@ -34,16 +36,18 @@ public class WordToken {
     }
     
     public String getPOS() {
-        if (token == null) {
-            return null;
-        }
-        return token.get(CoreAnnotations.PartOfSpeechAnnotation.class);
+        return pos;
     }
     
     public String getLemma() {
-        if (token == null) {
-            return null;
+        return lemma;
+    }
+    
+    public String getLemmaOrWord() {
+        if (getLemma() != null) {
+            return getLemma();
         }
-        return token.get(CoreAnnotations.LemmaAnnotation.class);
+        
+        return word;
     }
 }

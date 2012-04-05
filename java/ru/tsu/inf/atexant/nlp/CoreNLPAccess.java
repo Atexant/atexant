@@ -10,11 +10,11 @@ import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.trees.*;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 
-public class NLPAccess {
+public class CoreNLPAccess {
     
-    private static NLPAccess instance = new NLPAccess();
+    private static CoreNLPAccess instance = new CoreNLPAccess();
     
-    public static NLPAccess getInstance() {
+    public static CoreNLPAccess getInstance() {
         return instance;
     }
     
@@ -28,7 +28,7 @@ public class NLPAccess {
     }
     
     
-    private NLPAccess() {
+    private CoreNLPAccess() {
         init();
     }
     
@@ -98,7 +98,7 @@ public class NLPAccess {
         ArrayList< WordToken > result = new ArrayList<WordToken>();
         
         for (CoreLabel cl : getCoreLabelsOfWordsInText(text)) {
-            result.add(new WordToken(cl));
+            result.add(new CoreNLPWordToken(cl));
         }
         
         return result;
@@ -148,10 +148,6 @@ public class NLPAccess {
     
     public Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
         return getSentencesDependecies(sentenceText).get(0);
-    }
-    
-    public double getWordsSemanticSimilarityByWordnet(String word1, String word2) {
-        return 0.0;
     }
     
 }
