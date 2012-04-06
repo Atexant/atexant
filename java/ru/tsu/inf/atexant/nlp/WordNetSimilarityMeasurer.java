@@ -18,7 +18,7 @@ import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationMaxStategy;
 import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationStategy;
 
 
-public class WordNetSimilarityMeasurer {
+public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
     private final static String PATH_FILE_PROPERTIES = "res/extjwnl/file_properties.xml";
     
     private static WordNetSimilarityMeasurer instance = new WordNetSimilarityMeasurer();
@@ -177,6 +177,7 @@ public class WordNetSimilarityMeasurer {
         return defaultSelectionStategy.getValue(similarities);
     }
     
+    @Override
     public double getSimilarity(WordToken word1, WordToken word2) {
         IndexWord a = getIndexWordByWordToken(word1);
         IndexWord b = getIndexWordByWordToken(word2);

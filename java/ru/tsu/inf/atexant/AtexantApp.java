@@ -8,6 +8,7 @@ import ru.tsu.inf.atexant.search.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
+import ru.tsu.inf.atexant.nlp.sentences.SentenceSemanticSimilarityMeasurer;
 import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeWithWordTokensBuilder;
 import ru.tsu.inf.atexant.nlp.sentences.SentenceTree;
 
@@ -50,8 +51,14 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
-       
-        localProps = new Properties();
+        String first = "I like red apples";
+        String second = "He adores green oranges";
+        
+        SentenceSemanticSimilarityMeasurer sm = new SentenceSemanticSimilarityMeasurer();
+        
+        sm.getSimilarityOfSentences(first, second);
+        
+         localProps = new Properties();
         
         try {
             localProps.load(new FileInputStream("local.properties"));

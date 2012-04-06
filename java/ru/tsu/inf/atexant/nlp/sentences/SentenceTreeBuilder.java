@@ -44,14 +44,13 @@ public class SentenceTreeBuilder {
         Map< String, SentenceTreeNode > m = new HashMap< String, SentenceTreeNode>();
         
         for (SentenceDependency dependency : deps) {
-           SentenceTreeNode gov = findInMapByIdOrCreateSentenceTreeNode(m, dependency.getGovWord());
-           SentenceTreeNode dep = findInMapByIdOrCreateSentenceTreeNode(m, dependency.getDepWord());
            String dependencyType = dependency.getRelShortName();
-           
+           SentenceTreeNode dep = findInMapByIdOrCreateSentenceTreeNode(m, dependency.getDepWord());
            if (dependencyType.equalsIgnoreCase("root")) {
                result.setRoot(dep);
                continue;  
            }
+           SentenceTreeNode gov = findInMapByIdOrCreateSentenceTreeNode(m, dependency.getGovWord());
            
            gov.addChidlrenEdge(dep, dependencyType);
            

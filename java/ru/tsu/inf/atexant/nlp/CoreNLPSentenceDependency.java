@@ -24,7 +24,7 @@ public class CoreNLPSentenceDependency extends SentenceDependency {
     
     @Override
     public String getGovWord() {
-        return dependency.dep().label().toString();
+        return dependency.gov().label().toString();
     }
 
     @Override

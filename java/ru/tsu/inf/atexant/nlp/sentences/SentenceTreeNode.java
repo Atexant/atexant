@@ -31,7 +31,11 @@ public class SentenceTreeNode {
     
     public Integer getWordId() {
         return wordId;
-    } 
+    }
+
+    public WordToken getWordToken() {
+        return wt;
+    }  
 
     public void setWordToken(WordToken token) {
         wt = token;
