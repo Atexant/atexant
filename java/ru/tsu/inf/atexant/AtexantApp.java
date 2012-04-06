@@ -50,10 +50,6 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
-        
-        double res = WordNetSimilarityMeasurer.getInstance().getSimilarity(new WordToken("go", "VV"), new WordToken("run", "VV"));
-          	
-        System.exit(0);
        
         localProps = new Properties();
         

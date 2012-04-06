@@ -3,6 +3,7 @@ package ru.tsu.inf.atexant.nlp;
 import com.sun.xml.internal.ws.message.RelatesToHeader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import net.sf.extjwnl.JWNLException;
 import net.sf.extjwnl.data.*;
 import net.sf.extjwnl.data.list.PointerTargetNode;
@@ -13,6 +14,8 @@ import net.sf.extjwnl.data.relationship.Relationship;
 import net.sf.extjwnl.data.relationship.RelationshipFinder;
 import net.sf.extjwnl.data.relationship.RelationshipList;
 import net.sf.extjwnl.dictionary.Dictionary;
+import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationMaxStategy;
+import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationStategy;
 
 
 public class WordNetSimilarityMeasurer {
@@ -24,7 +27,7 @@ public class WordNetSimilarityMeasurer {
         return instance;
     }
     
-    Dictionary dict = null;
+    private Dictionary dict = null;
     
     private WordNetSimilarityMeasurer() {
         try {
@@ -38,6 +41,8 @@ public class WordNetSimilarityMeasurer {
             int a;
         }
     }
+    
+    private SelectionEvaluationStategy defaultSelectionStategy = new SelectionEvaluationMaxStategy();
     
     private POS getPOSByString(String posString) {
         if (posString == null) {
@@ -157,16 +162,19 @@ public class WordNetSimilarityMeasurer {
         return -1.0;
     }
     
+    
     private double getSimilarity(IndexWord a, IndexWord b) {
-        double best = 0.0;
+        double[] similarities = new double[a.getSenses().size() * b.getSenses().size()];
+        
+        int counter = 0;
         
         for (Synset aSynset : a.getSenses()) {
             for (Synset bSynset : b.getSenses()) {
-                best = Math.max(best, getSimilarity(aSynset, bSynset));
+                similarities[counter++] = getSimilarity(aSynset, bSynset);
             }
         }
-        
-        return best;
+       
+        return defaultSelectionStategy.getValue(similarities);
     }
     
     public double getSimilarity(WordToken word1, WordToken word2) {
