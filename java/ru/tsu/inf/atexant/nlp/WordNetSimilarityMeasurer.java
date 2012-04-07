@@ -152,8 +152,6 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
                     if (RelationshipFinder.findRelationships(a, b, PointerType.SIMILAR_TO).size() > 0) {
                         return similarWeightCoef;
                     }
-                }
-                if (a.getPOS().equals(b.getPOS())) {
                     return samePOSAdjCoef;
                 }
                 return 0.0;
