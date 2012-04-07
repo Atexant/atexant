@@ -51,12 +51,9 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
-        String first = "I like red apples";
+        String first = "He likes red apples";
         String second = "He adores green oranges";
         
-        WordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
-        
-        double res = wsm.getSimilarity(new WordToken("blue", "ADJ"), new WordToken("black", "ADJ"));
         
         SentenceSemanticSimilarityMeasurer sm = new SentenceSemanticSimilarityMeasurer();
         

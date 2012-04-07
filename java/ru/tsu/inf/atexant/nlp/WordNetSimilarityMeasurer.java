@@ -164,7 +164,7 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
             PointerTargetNode lcaNode = rel.getNodeList().get(rel.getCommonParentIndex());
             int d3 = getDistanceFromNodeToRoot(lcaNode);
             
-            double ans = ((double)(2*d3)) / ((double)(Math.sqrt(d1*d1 + d2*d2) + 2*d3));
+            double ans = ((double)(0.7*d3)) / ((double)(d1+d2+ 0.7*d3));
             return ans;
             
         } catch (CloneNotSupportedException e) {
