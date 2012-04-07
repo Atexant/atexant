@@ -29,6 +29,9 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
     
     private Dictionary dict = null;
     
+    private double similarWeightCoef = 0.8;
+    private double samePOSAdjCoef = 0.06;
+    
     private WordNetSimilarityMeasurer() {
         try {
             dict = Dictionary.getInstance(new FileInputStream(PATH_FILE_PROPERTIES));
@@ -138,9 +141,21 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
     
     private double getSimilarity(Synset a, Synset b) {
         try {
+            if (a.getSynset().equals(b.getSynset())) {
+                return 1.0;
+            }
+            
             RelationshipList relationshipList = RelationshipFinder.findRelationships(a, b, PointerType.HYPERNYM);
             
             if (relationshipList.size() == 0) {
+                if (a.getPOS().equals(POS.ADJECTIVE) && b.getPOS().equals(POS.ADJECTIVE)) {
+                    if (RelationshipFinder.findRelationships(a, b, PointerType.SIMILAR_TO).size() > 0) {
+                        return similarWeightCoef;
+                    }
+                }
+                if (a.getPOS().equals(b.getPOS())) {
+                    return samePOSAdjCoef;
+                }
                 return 0.0;
             }
             
