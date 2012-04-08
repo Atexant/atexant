@@ -57,14 +57,25 @@ public class WikiTextParser
         return bd.toString();
     }
     
-    public List< String> getUsefullPiecesOfText(String wikimediaText) {
-        LinkedList< String > result = new LinkedList<String>();
+    private ParsedPage buildParsedPage(String wikimediaText) {
         MediaWikiParserFactory pf = new MediaWikiParserFactory();
         pf.setTemplateParserClass(FlushTemplates.class);
 
         MediaWikiParser parser = pf.createParser();
        
-        ParsedPage p = parser.parse(wikimediaText);
+        ParsedPage p = parser.parse(wikimediaText); 
+        
+        return p;
+    }
+    
+    public String getClearTextOf(WikipediaPage p) {
+       return cleanText(buildParsedPage(p.rawText).getText());
+    }
+    
+    public List< String> getUsefullPiecesOfText(String wikimediaText) {
+        LinkedList< String > result = new LinkedList<String>();
+        
+        ParsedPage p = buildParsedPage(wikimediaText);
                
         for (Section s : p.getSections() ) {
             String text = s.getText();
@@ -91,6 +102,8 @@ public class WikiTextParser
         
         return result;
     }
+    
+    
     
     public static WikiTextParser getInstance() {
         return new WikiTextParser();

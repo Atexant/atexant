@@ -11,16 +11,16 @@ package ru.tsu.inf.atexant.nlp.sentences;
 public class SentenceComplexSimilarityMeasurer extends SentenceSimilarityMeasurer {
     private SentenceSimilarityMeasurer semanticMeasurer = new SentenceSemanticSimilarityMeasurer();
     private SentenceSimilarityMeasurer syntacticMeasurer = new SentenceSyntacticSimilarityMeasurer();
-    private double semanticWeight = 0.5;
-    private double syntaticWeight = 0.5;
+    private double semanticWeight = 0.6;
+    private double syntaticWeight = 0.4;
     
     public SentenceComplexSimilarityMeasurer() {
         
     }
     
     
-    public SentenceComplexSimilarityMeasurer(double sem) {
-        semanticWeight = sem;
+    public SentenceComplexSimilarityMeasurer(double sem) throws Exception {
+        setSemanticWeight(sem);
         
     }
     

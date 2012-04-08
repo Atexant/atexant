@@ -7,16 +7,16 @@ import ru.tsu.inf.atexant.search.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceSemanticSimilarityMeasurer;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTreeWithWordTokensBuilder;
-import ru.tsu.inf.atexant.nlp.sentences.SentenceTree;
+import ru.tsu.inf.atexant.nlp.sentences.*;
+import ru.tsu.inf.atexant.text.WikiTextParser;
 
 
 public class AtexantApp
 {
     
-    public static Properties localProps;
+    public static Properties localProps = new Properties();
     
     private static class WikipediaPageSaver extends WikipediaPageHandler {
         private WikipediaPageStorage storage = null;
@@ -49,17 +49,18 @@ public class AtexantApp
         } 
     }
     
+    public static class WikipediaPageSimilaritySentencesAnalyzer extends WikipediaPageHandler {
+
+        @Override
+        public void handle(WikipediaPage page) {
+            SentecesSimilarityAnalyzer ssa = new SentecesSimilarityAnalyzer();
+            ssa.searchSimilarToSampleSentence(WikiTextParser.getInstance().getClearTextOf(page));
+        }
+        
+    }
+    
     public static void main(String[] args) throws Exception
     {
-        String first = "He likes red apples";
-        String second = "He adores green oranges";
-        
-        
-        SentenceSemanticSimilarityMeasurer sm = new SentenceSemanticSimilarityMeasurer();
-        
-        sm.getSimilarityOfSentences(first, second);
-        
-         localProps = new Properties();
         
         try {
             localProps.load(new FileInputStream("local.properties"));
@@ -88,6 +89,15 @@ public class AtexantApp
                 handler = new WikipediaPageSaver(app.getStorage());
             } else if(handlerCmd.equalsIgnoreCase("wordMentions")) {
                 handler = new WordsMentionsPersisterWikipediaPageHandler(new FileSystemWordsMentionsStorage());
+            } else if (handlerCmd.equalsIgnoreCase("sentenceSimilarity")) {
+                
+                System.out.print("Page id: ");
+                Integer pageId = new Scanner(System.in).nextInt();
+                
+                WikipediaPageFinder finder = new WikipediaPageFinder(new WikipediaPageSimilaritySentencesAnalyzer());
+                finder.setId(pageId);
+                handler = finder;
+                
             } else {
                 System.out.println("wrong wikipedia page handler (3 parameter)");
                 return;

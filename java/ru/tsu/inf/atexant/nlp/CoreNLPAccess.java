@@ -18,13 +18,22 @@ public class CoreNLPAccess {
         return instance;
     }
     
-    private StanfordCoreNLP pipeline = null;
+    private StanfordCoreNLP splitPipeline = null;
+    private StanfordCoreNLP posPipeline = null;
+    private StanfordCoreNLP parsepipeline = null;
     
     private void init()
     {
         Properties props = new Properties();
+        
+        props.put("annotators", "tokenize, ssplit");
+        splitPipeline = new StanfordCoreNLP(props);
+        
+        props.put("annotators", "tokenize, ssplit, pos, lemma");
+        posPipeline = new StanfordCoreNLP(props);
+        
         props.put("annotators", "tokenize, ssplit, parse, pos, lemma");
-        pipeline = new StanfordCoreNLP(props);
+        parsepipeline = new StanfordCoreNLP(props);
     }
     
     
@@ -43,7 +52,7 @@ public class CoreNLPAccess {
     
     public Iterable< String > getNormalizedWordsFromText(String text) {
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        posPipeline.annotate(document);
 
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
         
@@ -76,7 +85,7 @@ public class CoreNLPAccess {
     
     private Iterable< CoreLabel > getCoreLabelsOfWordsInText(String text) {
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        posPipeline.annotate(document);
 
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
                
@@ -118,7 +127,7 @@ public class CoreNLPAccess {
     public List< Collection< SentenceDependency > > getSentencesDependecies(String text)
     {
         Annotation document = new Annotation(text);
-        pipeline.annotate(document);
+        parsepipeline.annotate(document);
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
         
         TreebankLanguagePack tlp = new PennTreebankLanguagePack();
@@ -148,6 +157,20 @@ public class CoreNLPAccess {
     
     public Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
         return getSentencesDependecies(sentenceText).get(0);
+    }
+    
+    public Collection< String > getSentencesFromText(String text) {
+        Collection< String > result = new LinkedList<String>();
+        
+        Annotation document = new Annotation(text);
+        splitPipeline.annotate(document);
+        List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+        
+        for (CoreMap sentence : sentences) {
+            result.add(sentence.get(TextAnnotation.class));
+        }
+        
+        return result;
     }
     
 }

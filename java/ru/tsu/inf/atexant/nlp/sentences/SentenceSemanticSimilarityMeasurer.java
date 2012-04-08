@@ -18,7 +18,6 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         public int isVerb = 0;
     }
     
-    private SentenceTreeBuilder treeBuilder = new SentenceTreeWithWordTokensBuilder();
     private WordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
     
     private double NodeTopWeight = 0.7;
@@ -44,10 +43,6 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         this.VerbNodeWeight = 1 - a;
     }
     
-    private SentenceTree buildTree(Sentence a) {
-        return treeBuilder.buildSentenceTree(a.getText());
-    }
-    
     private boolean isUsefulRelType(String typeName) {
         for (String type : usefulTypes) {
             if (type.equalsIgnoreCase(typeName)) {
@@ -64,7 +59,7 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         
         if (node.getNodePOS().startsWith("V")) {
             result.isVerb = 1;
-        } else if (node.getNodePOS().startsWith("NN")) {
+        } else if (node.getNodePOS().startsWith("NN") || node.getNodePOS().startsWith("PRP")) {
             result.isVerb = 0;
         } else {
             return null;
@@ -162,6 +157,10 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
             res += a.get(i)*b.get(i);
             ad += Math.pow(a.get(i), 2.0);
             bd += Math.pow(b.get(i), 2.0);
+        }
+        
+        if (ad == 0.0 || bd == 0.0) {
+            return 0.0;
         }
         
         res /= Math.sqrt(ad) * Math.sqrt(bd);

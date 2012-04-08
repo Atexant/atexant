@@ -17,7 +17,11 @@ public class SentenceTreeNode {
         if (u.contains("-")) {
             String[] a = u.split("-");
             word = a[0];
-            wordId = new Integer(a[1]);
+            try {
+                wordId = new Integer(a[a.length-1]);
+            } catch (NumberFormatException e) {
+                throw e;
+            }
         } else {
             word = u;
         }
