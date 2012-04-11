@@ -31,8 +31,8 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         this.NodeChildrenWeight = 1.0-a;
     }
     
-    private double NounNodeWeight = 0.6;
-    private double VerbNodeWeight = 0.4;
+    private double NounNodeWeight = 0.8;
+    private double VerbNodeWeight = 0.2;
 
     public void setNounNodeWeight(double a) {
         if (a > 1.0 || a < 0.0) {
@@ -165,7 +165,7 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         
         res /= Math.sqrt(ad) * Math.sqrt(bd);
         
-        return Math.pow(res, Math.E);
+        return Math.pow(res, Math.E*2.0);
     }
         
     @Override

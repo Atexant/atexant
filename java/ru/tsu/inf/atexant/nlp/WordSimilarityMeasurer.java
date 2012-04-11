@@ -10,5 +10,8 @@ package ru.tsu.inf.atexant.nlp;
  */
 abstract public class WordSimilarityMeasurer {
     public abstract double getSimilarity(WordToken word1, WordToken word2);
-
+    
+    public double getSimilarity(String word1, String word2) {
+        return getSimilarity(new WordToken(word1), new WordToken(word2));
+    }
 }

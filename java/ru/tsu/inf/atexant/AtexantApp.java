@@ -1,13 +1,11 @@
 package ru.tsu.inf.atexant;
 
+import java.io.*;
 import ru.tsu.inf.atexant.storages.*;
 import ru.tsu.inf.atexant.dump.*;
 import ru.tsu.inf.atexant.nlp.*;
 import ru.tsu.inf.atexant.search.*;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 import ru.tsu.inf.atexant.nlp.sentences.*;
 import ru.tsu.inf.atexant.text.WikiTextParser;
@@ -61,7 +59,7 @@ public class AtexantApp
     
     public static void main(String[] args) throws Exception
     {
-        
+              
         try {
             localProps.load(new FileInputStream("local.properties"));
         } catch(IOException e) {          
@@ -122,6 +120,11 @@ public class AtexantApp
 	    app.wikiDebug(args[1]);
 	    return;
 	}
+        
+        if (args[0].equalsIgnoreCase("testWordsSimilarity")) {
+            app.testWordsSimilarity(args[1]);
+            return;
+        }
 
         return;
     }
@@ -180,5 +183,50 @@ public class AtexantApp
 			System.exit(0);
 		}
 	    });
+    }
+    
+    private class MeasureToken {
+        public String first;
+        public String second;
+        public Double humanSimilarity;
+        public Double ourSimilarity = null;
+
+        public MeasureToken(String first, String second, Double humanSimilarity) {
+            this.first = first;
+            this.second = second;
+            this.humanSimilarity = humanSimilarity;
+        }
+        
+        public Double getErr() {
+            return Math.abs(this.humanSimilarity - this.ourSimilarity);
+        }
+    }
+    
+    private ArrayList< MeasureToken > getMeasureTokens(String tokensFileName) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(tokensFileName)));
+        ArrayList< MeasureToken > result = new ArrayList< MeasureToken >();
+        
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] splitted = line.split("\\|");
+            MeasureToken token = new MeasureToken(splitted[0], splitted[1], new Double(splitted[2]));
+            token.humanSimilarity = token.humanSimilarity/4.0;
+            result.add(token);
+        }
+        
+        return result;
+    }
+    
+    public void testWordsSimilarity(String sampleFileName) throws Exception {
+        WordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
+        
+        ArrayList< MeasureToken > testSet = getMeasureTokens(sampleFileName);
+        
+        System.out.println("              humanSim ourSim");
+        
+        for (MeasureToken token : testSet) {
+            token.ourSimilarity = wsm.getSimilarity(new WordToken(token.first, "NN"), new WordToken(token.second, "NN"));
+            System.out.println(token.first + " " + token.second  + " ("+ token.humanSimilarity.toString() + ") (" + token.ourSimilarity.toString() + ") err=" + token.getErr().toString() + "");
+        }
     }
 }

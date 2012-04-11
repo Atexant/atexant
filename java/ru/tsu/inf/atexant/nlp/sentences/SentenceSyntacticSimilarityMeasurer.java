@@ -32,20 +32,11 @@ public class SentenceSyntacticSimilarityMeasurer extends SentenceSimilarityMeasu
             return 0.0;
         }
         
-        Set< String > set = new HashSet<String>();
+        Set< String > setA = new HashSet<String>(aEdgesKey);
+        setA.retainAll(bEdgesKey);
         
-        for (String k : aEdgesKey ) {
-            set.add(k);
-        }
-        
-        int intersectionSize = 0;
-        
-        for (String k : bEdgesKey) {
-            if (set.contains(k)) {
-                intersectionSize++;
-            }
-        }
-        
+        int intersectionSize = setA.size();
+              
         double result = (2.0 * intersectionSize) / (aEdgesKey.size() + bEdgesKey.size());
         
         return result;

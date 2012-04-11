@@ -1,6 +1,5 @@
 package ru.tsu.inf.atexant.nlp;
 
-import com.sun.xml.internal.ws.message.RelatesToHeader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -164,7 +163,7 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
             PointerTargetNode lcaNode = rel.getNodeList().get(rel.getCommonParentIndex());
             int d3 = getDistanceFromNodeToRoot(lcaNode);
             
-            double ans = ((double)(0.7*d3)) / ((double)(d1+d2+ 0.7*d3));
+            double ans = ((double)(0.8*d3)) / ((double)(d1+d2+ 0.8*d3));
             return ans;
             
         } catch (CloneNotSupportedException e) {

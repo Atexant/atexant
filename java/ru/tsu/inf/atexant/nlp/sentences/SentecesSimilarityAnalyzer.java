@@ -25,13 +25,14 @@ public class SentecesSimilarityAnalyzer {
 
         @Override
         public int compareTo(SentencePair o) {
-            return (int)(o.similarity - this.similarity);          
+            return new Double(o.similarity).compareTo(new Double(this.similarity));          
         }
         
         
     }
     
     protected SentenceSimilarityMeasurer similarityMeasurer = new SentenceComplexSimilarityMeasurer();
+    private boolean isDebug = false;
     
     public  SentencePair[] getSimilarSentences(String text, String sampleSentenceText) {
         ArrayList< SentencePair > result = new ArrayList<SentencePair>();
@@ -39,18 +40,23 @@ public class SentecesSimilarityAnalyzer {
         Sentence sampleSentence = new Sentence(sampleSentenceText);
         
         for (String sentenceText : CoreNLPAccess.getInstance().getSentencesFromText(text)) {
-            result.add(
-                    new SentencePair(
+           SentencePair sp = new SentencePair(
                         sentenceText, 
                         similarityMeasurer.getSimilarityOfSentences(
                                                         sampleSentence, 
                                                         new Sentence(sentenceText)
                                 )
-                    )
-            );
+                    );
+            result.add(sp);
+            
+            if (isDebug) {
+                System.out.println(sp.text + " (" + new Double(sp.similarity) + ")");
+            }
         }
         
-        SentencePair[] res = (SentencePair[])result.toArray();
+        SentencePair[] res = new SentencePair[result.size()];
+        
+        result.toArray(res);
         
         Arrays.sort(res);
         
@@ -71,7 +77,7 @@ public class SentecesSimilarityAnalyzer {
         System.out.println("Similar sentences:");
         
         for (int i = 0 ; i < result.length; i++) {
-            System.out.print(new Integer(i).toString() + ". ");
+            System.out.print(new Integer(i+1).toString() + ". ");
             System.out.println(result[i].text + " (" + new Double(result[i].similarity).toString() + ")");
         }      
     }
