@@ -51,7 +51,13 @@ public class AtexantApp
 
         @Override
         public void handle(WikipediaPage page) {
-            SentecesSimilarityAnalyzer ssa = new SentecesSimilarityAnalyzer();
+
+            Properties props = new Properties();
+            props.setProperty("node_top_weight", "0.65");
+            props.setProperty("noun_node_weight", "0.85");
+            props.setProperty("semantic_weight", "0.9");
+            props.setProperty("e", "7");
+            SentencesSimilarityAnalyzer ssa = new SentencesSimilarityAnalyzer();
             ssa.searchSimilarToSampleSentence(WikiTextParser.getInstance().getClearTextOf(page));
         }
         
@@ -123,6 +129,11 @@ public class AtexantApp
         
         if (args[0].equalsIgnoreCase("testWordsSimilarity")) {
             app.testWordsSimilarity(args[1]);
+            return;
+        }
+        
+        if (args[0].equalsIgnoreCase("testSentencesSimilarity")) {
+            app.testWSentencesSimilarity(args[1]);
             return;
         }
 
@@ -228,5 +239,29 @@ public class AtexantApp
             token.ourSimilarity = wsm.getSimilarity(new WordToken(token.first, "NN"), new WordToken(token.second, "NN"));
             System.out.println(token.first + " " + token.second  + " ("+ token.humanSimilarity.toString() + ") (" + token.ourSimilarity.toString() + ") err=" + token.getErr().toString() + "");
         }
+        
+    }
+    
+    public void testWSentencesSimilarity(String sampleFileName) throws Exception {
+        Properties props = new Properties();
+        //α1 , β 1 , λ1 , and e are assigned with 0.65, 0.85, 0.90, 7 respectively.
+
+        props.setProperty("node_top_weight", "0.65");
+        props.setProperty("noun_node_weight", "0.85");
+        props.setProperty("semantic_weight", "0.9");
+        props.setProperty("e", "7");
+        SentenceSimilarityMeasurer ssm = new SentenceComplexSimilarityMeasurer(props);
+        
+        ArrayList< MeasureToken > testSet = getMeasureTokens(sampleFileName);
+        
+        for (MeasureToken token : testSet) {
+            token.ourSimilarity = ssm.getSimilarityOfSentences(token.first, token.second);
+            System.out.println(token.first);
+            System.out.println(token.second);
+            System.out.println("hSim="+token.humanSimilarity.toString() + " ourSim=" +token.ourSimilarity.toString() + " err=" + token.getErr().toString());
+            
+            System.out.println();
+        }
+        
     }
 }

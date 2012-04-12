@@ -12,7 +12,7 @@ import ru.tsu.inf.atexant.nlp.CoreNLPAccess;
  *
  * @author sufix
  */
-public class SentecesSimilarityAnalyzer {
+public class SentencesSimilarityAnalyzer {
     
     public class SentencePair implements Comparable<SentencePair> {
         String text;
@@ -34,6 +34,14 @@ public class SentecesSimilarityAnalyzer {
     protected SentenceSimilarityMeasurer similarityMeasurer = new SentenceComplexSimilarityMeasurer();
     private boolean isDebug = false;
     
+    public SentencesSimilarityAnalyzer() {
+        
+    }
+    
+    public SentencesSimilarityAnalyzer(Properties props) throws Exception {
+        similarityMeasurer = new SentenceComplexSimilarityMeasurer(props);
+    }
+    
     public  SentencePair[] getSimilarSentences(String text, String sampleSentenceText) {
         ArrayList< SentencePair > result = new ArrayList<SentencePair>();
         
@@ -48,6 +56,10 @@ public class SentecesSimilarityAnalyzer {
                                 )
                     );
             result.add(sp);
+            
+            if (result.size() > 20) {
+                break;
+            }
             
             if (isDebug) {
                 System.out.println(sp.text + " (" + new Double(sp.similarity) + ")");

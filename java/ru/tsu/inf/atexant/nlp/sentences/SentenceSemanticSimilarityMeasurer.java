@@ -43,6 +43,32 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         this.VerbNodeWeight = 1 - a;
     }
     
+    private double constE = 7;
+
+    public void setConstE(double constE) {
+        this.constE = constE;
+    }
+
+    
+    public SentenceSemanticSimilarityMeasurer() {
+        
+    }
+    
+    public SentenceSemanticSimilarityMeasurer(Properties props) {
+        if (props.containsKey("node_top_weight")) {
+            double w = Double.valueOf(props.getProperty("node_top_weight", "0.7"));
+            setNodeTopWeight(w);
+        }     
+        if (props.containsKey("noun_node_weight")) {
+            double w = Double.valueOf(props.getProperty("noun_node_weight", "0.8"));
+            setNounNodeWeight(w);
+        }    
+        if (props.containsKey("e")) {
+            double w = Double.valueOf(props.getProperty("e", "0.8"));
+            setConstE(w);
+        }    
+    }
+    
     private boolean isUsefulRelType(String typeName) {
         for (String type : usefulTypes) {
             if (type.equalsIgnoreCase(typeName)) {
@@ -165,7 +191,7 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         
         res /= Math.sqrt(ad) * Math.sqrt(bd);
         
-        return Math.pow(res, Math.E*2.0);
+        return Math.pow(res, constE);
     }
         
     @Override

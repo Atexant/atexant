@@ -4,6 +4,8 @@
  */
 package ru.tsu.inf.atexant.nlp.sentences;
 
+import java.util.Properties;
+
 /**
  *
  * @author sufix
@@ -21,10 +23,18 @@ public class SentenceComplexSimilarityMeasurer extends SentenceSimilarityMeasure
     
     public SentenceComplexSimilarityMeasurer(double sem) throws Exception {
         setSemanticWeight(sem);
-        
     }
     
-    public void setSemanticWeight(double v) throws Exception {
+    public SentenceComplexSimilarityMeasurer(Properties props) throws Exception {
+        if (props.containsKey("semantic_weight")) {
+            double w = Double.valueOf(props.getProperty("semantic_weight", "0.6"));
+            setSemanticWeight(w);
+        }
+        
+        semanticMeasurer = new SentenceSemanticSimilarityMeasurer(props);
+    }
+    
+    public void setSemanticWeight(Double v) throws Exception {
         if (v < 0 || v > 1.0) {
             throw new Exception("out of bounds");
         }

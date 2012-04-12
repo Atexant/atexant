@@ -1,0 +1,13 @@
+Page id: 573
+Sample sentence: The most famous targets of the alchemist's is the transformation of common metals into gold, and making of a magic remedy named panacea
+Similar sentences:
+1. The best known goals of the alchemists were the transmutation of common metals into Gold or Silver, and the creation of a "panacea," a remedy that supposedly would cure all diseases and prolong life indefinitely; and the discovery of a universal solvent. (0.33402786654458877)
+2. The former is pursued by historians of the physical sciences who have examined the subject in terms of proto-chemistry, medicine, and charlatanism. (0.2633137492042213)
+3. Page from alchemic treatise of Ramon Llull, 16th century Alchemy is an ancient tradition, the primary objective of which was the creation of the mythical "philosopher's stone," which was said to be capable of turning base metals into gold or silver, and also act as an elixir of life that would confer youth and immortality upon its user. (0.26029702187141995)
+4. University Press of Kentucky, 1996.p.6-36  The subject has also made an ongoing impact on literature and the arts. (0.216892823431806)
+5. Starting with the Middle Ages, Persian and European alchemists invested much effort in the search for the philosopher's stone, a legendary substance that was believed to be an essential ingredient for either or both of those goals. (0.20910390097446588)
+6. Alchemy can be viewed as a protoscience, a precursor to modern chemistry, having provided procedures, equipment, and terminology that are still in use. (0.20236266233962663)
+7. Despite the modern split, numerous sources stress an integration of esoteric and exoteric approaches to alchemy. (0.17843010381709823)
+8. For a detailed look into the problems of defining alchemy see Stanton J. Linden. (0.17575300046634107)
+9. The technological, operative approach, which she calls extraverted, and the mystic, contemplative, psychological one, which she calls introverted are not mutually exclusive, but complementary instead, as meditation requires practice in the real world, and conversely. (0.17228282296053082)
+10. Marie-Louise von Franz tells us the double approach of Western alchemy was set from the start, when Greek philosophy was mixed with Egyptian and Mesopotamian technology. (0.1699747978381433)
