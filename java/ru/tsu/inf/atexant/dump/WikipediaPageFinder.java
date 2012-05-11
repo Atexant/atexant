@@ -10,11 +10,11 @@ import ru.tsu.inf.atexant.WikipediaPage;
  *
  * @author sufix
  */
-public class WikipediaPageFinder extends WikipediaPageHandler {
-    private WikipediaPageHandler handler = null;
+public class WikipediaPageFinder extends AbstractWikipediaPageHandler {
+    private AbstractWikipediaPageHandler handler = null;
     private Integer id;
     
-    public WikipediaPageFinder(WikipediaPageHandler handler) {
+    public WikipediaPageFinder(AbstractWikipediaPageHandler handler) {
         this.handler = handler;
     }
 

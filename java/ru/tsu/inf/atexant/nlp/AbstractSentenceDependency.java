@@ -8,7 +8,7 @@ package ru.tsu.inf.atexant.nlp;
  *
  * @author sufix
  */
-abstract public class SentenceDependency {
+abstract public class AbstractSentenceDependency {
     public abstract String getGovWord();
     public abstract String getDepWord();
     public abstract String getRelShortName();

@@ -10,7 +10,7 @@ import edu.stanford.nlp.trees.TypedDependency;
  *
  * @author sufix
  */
-public class CoreNLPSentenceDependency extends SentenceDependency {
+public class CoreNLPSentenceDependency extends AbstractSentenceDependency {
     private TypedDependency dependency = null;
     
     public CoreNLPSentenceDependency(TypedDependency td) {

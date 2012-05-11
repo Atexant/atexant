@@ -3,7 +3,7 @@ package ru.tsu.inf.atexant.search;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class WordsMentionsStorage {
+public abstract class AbstractWordsMentionsStorage {
     public abstract void persistMention(String word, Integer documentId);
     public abstract Iterable< Integer > getRelatedDocumentsForWord(String word);
     

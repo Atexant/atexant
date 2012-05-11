@@ -4,7 +4,7 @@
  */
 package ru.tsu.inf.atexant.nlp.sentences;
 
-abstract public class SentenceSimilarityMeasurer {
+abstract public class AbstractSentenceSimilarityMeasurer {
     protected SentenceTreeBuilder treeBuilder = new SentenceTreeWithWordTokensBuilder();
     
         

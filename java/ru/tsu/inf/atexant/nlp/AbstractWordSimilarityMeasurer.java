@@ -8,7 +8,7 @@ package ru.tsu.inf.atexant.nlp;
  *
  * @author sufix
  */
-abstract public class WordSimilarityMeasurer {
+abstract public class AbstractWordSimilarityMeasurer {
     public abstract double getSimilarity(WordToken word1, WordToken word2);
     
     public double getSimilarity(String word1, String word2) {

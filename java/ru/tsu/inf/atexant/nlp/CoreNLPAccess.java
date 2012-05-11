@@ -124,7 +124,7 @@ public class CoreNLPAccess {
         return getNormalizedWordsFromText(text.toString());
     }
     
-    public List< Collection< SentenceDependency > > getSentencesDependecies(String text)
+    public List< Collection< AbstractSentenceDependency > > getSentencesDependecies(String text)
     {
         Annotation document = new Annotation(text);
         parsepipeline.annotate(document);
@@ -135,7 +135,7 @@ public class CoreNLPAccess {
         
         Tree tree;
         
-        List< Collection< SentenceDependency > > result = new LinkedList< Collection< SentenceDependency > >();
+        List< Collection< AbstractSentenceDependency > > result = new LinkedList< Collection< AbstractSentenceDependency > >();
         
         for(CoreMap sentence: sentences) 
 	{
@@ -143,7 +143,7 @@ public class CoreNLPAccess {
             
             GrammaticalStructure structure = grammaticalStructureFactory.newGrammaticalStructure(tree);
             
-            Collection< SentenceDependency > current = new LinkedList<SentenceDependency> ();
+            Collection< AbstractSentenceDependency > current = new LinkedList<AbstractSentenceDependency> ();
             
             for (TypedDependency td : structure.typedDependenciesCollapsedTree()) {
                 current.add(new CoreNLPSentenceDependency(td));
@@ -155,7 +155,7 @@ public class CoreNLPAccess {
         return result;
     }
     
-    public Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
+    public Collection< AbstractSentenceDependency > getSentenceDependencies(String sentenceText) {
         return getSentencesDependecies(sentenceText).get(0);
     }
     

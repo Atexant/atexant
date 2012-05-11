@@ -10,9 +10,9 @@ import java.util.Properties;
  *
  * @author sufix
  */
-public class SentenceComplexSimilarityMeasurer extends SentenceSimilarityMeasurer {
-    private SentenceSimilarityMeasurer semanticMeasurer = new SentenceSemanticSimilarityMeasurer();
-    private SentenceSimilarityMeasurer syntacticMeasurer = new SentenceSyntacticSimilarityMeasurer();
+public class SentenceComplexSimilarityMeasurer extends AbstractSentenceSimilarityMeasurer {
+    private AbstractSentenceSimilarityMeasurer semanticMeasurer = new SentenceSemanticSimilarityMeasurer();
+    private AbstractSentenceSimilarityMeasurer syntacticMeasurer = new SentenceSyntacticSimilarityMeasurer();
     private double semanticWeight = 0.6;
     private double syntaticWeight = 0.4;
     

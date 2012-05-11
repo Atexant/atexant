@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Iterator;
 
 
-public class MysqlWikipediaPageStorage extends WikipediaPageStorage {
+public class MysqlWikipediaPageStorage extends AbstractWikipediaPageStorage {
     
     private MySQLAccess db = null;
     public MysqlWikipediaPageStorage() throws Exception {

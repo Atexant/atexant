@@ -31,7 +31,7 @@ public class SentencesSimilarityAnalyzer {
         
     }
     
-    protected SentenceSimilarityMeasurer similarityMeasurer = new SentenceComplexSimilarityMeasurer();
+    protected AbstractSentenceSimilarityMeasurer similarityMeasurer = new SentenceComplexSimilarityMeasurer();
     private boolean isDebug = false;
     
     public SentencesSimilarityAnalyzer() {

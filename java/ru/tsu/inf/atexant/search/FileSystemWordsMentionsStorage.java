@@ -2,7 +2,7 @@ package ru.tsu.inf.atexant.search;
 
 import java.util.LinkedList;
 
-public class FileSystemWordsMentionsStorage extends WordsMentionsStorage {
+public class FileSystemWordsMentionsStorage extends AbstractWordsMentionsStorage {
 
     @Override
     public void persistMention(String word, Integer documentId) {

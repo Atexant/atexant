@@ -3,7 +3,7 @@ package ru.tsu.inf.atexant.nlp.stat;
 import java.util.Arrays;
 
 
-public class SelectionEvaluationQuantilStategy extends SelectionEvaluationStategy {
+public class SelectionEvaluationQuantilStategy extends AbstractSelectionEvaluationStategy {
 
     @Override
     public double getValue(double[] a) {

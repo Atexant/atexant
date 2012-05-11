@@ -6,9 +6,9 @@ package ru.tsu.inf.atexant.nlp.sentences;
 
 import java.util.*;
 import ru.tsu.inf.atexant.nlp.WordNetSimilarityMeasurer;
-import ru.tsu.inf.atexant.nlp.WordSimilarityMeasurer;
+import ru.tsu.inf.atexant.nlp.AbstractWordSimilarityMeasurer;
 
-public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasurer {
+public class SentenceSemanticSimilarityMeasurer extends AbstractSentenceSimilarityMeasurer {
     
     public static String[] usefulTypes = new String[]{ "amod", "rcmod", "acmod", "admod", "neg" };
     
@@ -18,7 +18,7 @@ public class SentenceSemanticSimilarityMeasurer extends SentenceSimilarityMeasur
         public int isVerb = 0;
     }
     
-    private WordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
+    private AbstractWordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
     
     private double NodeTopWeight = 0.7;
     private double NodeChildrenWeight = 0.3;

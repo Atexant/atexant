@@ -14,10 +14,10 @@ import net.sf.extjwnl.data.relationship.RelationshipFinder;
 import net.sf.extjwnl.data.relationship.RelationshipList;
 import net.sf.extjwnl.dictionary.Dictionary;
 import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationMaxStategy;
-import ru.tsu.inf.atexant.nlp.stat.SelectionEvaluationStategy;
+import ru.tsu.inf.atexant.nlp.stat.AbstractSelectionEvaluationStategy;
 
 
-public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
+public class WordNetSimilarityMeasurer extends AbstractWordSimilarityMeasurer {
     private final static String PATH_FILE_PROPERTIES = "res/extjwnl/file_properties.xml";
     
     private static WordNetSimilarityMeasurer instance = new WordNetSimilarityMeasurer();
@@ -44,7 +44,7 @@ public class WordNetSimilarityMeasurer extends WordSimilarityMeasurer {
         }
     }
     
-    private SelectionEvaluationStategy defaultSelectionStategy = new SelectionEvaluationMaxStategy();
+    private AbstractSelectionEvaluationStategy defaultSelectionStategy = new SelectionEvaluationMaxStategy();
     
     private POS getPOSByString(String posString) {
         if (posString == null) {

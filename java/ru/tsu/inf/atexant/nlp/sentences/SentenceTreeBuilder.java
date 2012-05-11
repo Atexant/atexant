@@ -6,7 +6,7 @@ package ru.tsu.inf.atexant.nlp.sentences;
 
 import java.util.*;
 import ru.tsu.inf.atexant.nlp.CoreNLPAccess;
-import ru.tsu.inf.atexant.nlp.SentenceDependency;
+import ru.tsu.inf.atexant.nlp.AbstractSentenceDependency;
 
 public class SentenceTreeBuilder {
     
@@ -38,12 +38,12 @@ public class SentenceTreeBuilder {
         return node;
     }
     
-    private SentenceTree buildSentenceTreeByTypedDependecies(Collection< SentenceDependency > deps) {
+    private SentenceTree buildSentenceTreeByTypedDependecies(Collection< AbstractSentenceDependency > deps) {
         SentenceTree result = new SentenceTree();
         
         Map< String, SentenceTreeNode > m = new HashMap< String, SentenceTreeNode>();
         
-        for (SentenceDependency dependency : deps) {
+        for (AbstractSentenceDependency dependency : deps) {
            String dependencyType = dependency.getRelShortName();
            SentenceTreeNode dep = findInMapByIdOrCreateSentenceTreeNode(m, dependency.getDepWord());
            if (dependencyType.equalsIgnoreCase("root")) {
@@ -69,18 +69,18 @@ public class SentenceTreeBuilder {
     
     public List< SentenceTree> buildSentencesTrees(String text) {
         List< SentenceTree > result = new LinkedList<SentenceTree>();
-        for (Collection< SentenceDependency > deps : getSentencesDependencies(text)) {
+        for (Collection< AbstractSentenceDependency > deps : getSentencesDependencies(text)) {
             result.add(buildSentenceTreeByTypedDependecies(deps));
         }
         
         return result;
     }
 
-    private List< Collection< SentenceDependency > > getSentencesDependencies(String sentenceText) {
+    private List< Collection< AbstractSentenceDependency > > getSentencesDependencies(String sentenceText) {
         return CoreNLPAccess.getInstance().getSentencesDependecies(sentenceText);
     }
     
-    private Collection< SentenceDependency > getSentenceDependencies(String sentenceText) {
+    private Collection< AbstractSentenceDependency > getSentenceDependencies(String sentenceText) {
         return CoreNLPAccess.getInstance().getSentenceDependencies(sentenceText);
     }
 }

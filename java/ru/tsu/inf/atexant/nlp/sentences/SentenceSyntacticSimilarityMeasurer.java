@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class SentenceSyntacticSimilarityMeasurer extends SentenceSimilarityMeasurer {
+public class SentenceSyntacticSimilarityMeasurer extends AbstractSentenceSimilarityMeasurer {
 
     private String getSentenceTreeEdgeKey(SentenceTreeEdge edge) {
         return edge.getType() + "#" + edge.getFrom().getNodePOS().substring(0, 2) + "#" + edge.getTo().getNodePOS().substring(0, 2);

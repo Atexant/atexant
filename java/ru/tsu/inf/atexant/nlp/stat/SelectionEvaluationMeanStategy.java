@@ -1,7 +1,7 @@
 package ru.tsu.inf.atexant.nlp.stat;
 
 
-public class SelectionEvaluationMeanStategy extends SelectionEvaluationStategy {
+public class SelectionEvaluationMeanStategy extends AbstractSelectionEvaluationStategy {
 
     @Override
     public double getValue(double[] a) {

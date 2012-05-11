@@ -16,10 +16,10 @@ public class AtexantApp
     
     public static Properties localProps = new Properties();
     
-    private static class WikipediaPageSaver extends WikipediaPageHandler {
-        private WikipediaPageStorage storage = null;
+    private static class WikipediaPageSaver extends AbstractWikipediaPageHandler {
+        private AbstractWikipediaPageStorage storage = null;
         
-        public WikipediaPageSaver(WikipediaPageStorage a) {
+        public WikipediaPageSaver(AbstractWikipediaPageStorage a) {
             storage = a;
         }
         
@@ -47,7 +47,7 @@ public class AtexantApp
         } 
     }
     
-    public static class WikipediaPageSimilaritySentencesAnalyzer extends WikipediaPageHandler {
+    public static class WikipediaPageSimilaritySentencesAnalyzer extends AbstractWikipediaPageHandler {
 
         @Override
         public void handle(WikipediaPage page) {
@@ -85,7 +85,7 @@ public class AtexantApp
                 return;
             }
             
-            WikipediaPageHandler handler = null;
+            AbstractWikipediaPageHandler handler = null;
             
             String handlerCmd = args[2];
             
@@ -140,12 +140,12 @@ public class AtexantApp
         return;
     }
     
-    public WikipediaPageStorage getStorage() throws Exception {
+    public AbstractWikipediaPageStorage getStorage() throws Exception {
         return new MysqlWikipediaPageStorage();
     }
     
     public void processRedirectsInDb() throws Exception {
-        WikipediaPageStorage st = getStorage();
+        AbstractWikipediaPageStorage st = getStorage();
         for (WikipediaPage p : st.getAll()) {
             if (!p.isRedirect) {
                 continue;
@@ -173,7 +173,7 @@ public class AtexantApp
         }
     }
     
-    public void proccessXmlFile(String filename, WikipediaPageHandler handler, long offset) throws Exception {
+    public void proccessXmlFile(String filename, AbstractWikipediaPageHandler handler, long offset) throws Exception {
         WikipediaParser.parse(filename, handler, offset);
     }
     
@@ -183,7 +183,7 @@ public class AtexantApp
     
     private void wikiDebug(String fileName) throws Exception
     {
-	WikipediaParser.parse(fileName, new WikipediaPageHandler(){
+	WikipediaParser.parse(fileName, new AbstractWikipediaPageHandler(){
 		private int count = 0;
 
 		public void handle(WikipediaPage page)
@@ -229,7 +229,7 @@ public class AtexantApp
     }
     
     public void testWordsSimilarity(String sampleFileName) throws Exception {
-        WordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
+        AbstractWordSimilarityMeasurer wsm = WordNetSimilarityMeasurer.getInstance();
         
         ArrayList< MeasureToken > testSet = getMeasureTokens(sampleFileName);
         
@@ -250,7 +250,7 @@ public class AtexantApp
         props.setProperty("noun_node_weight", "0.85");
         props.setProperty("semantic_weight", "0.9");
         props.setProperty("e", "7");
-        SentenceSimilarityMeasurer ssm = new SentenceComplexSimilarityMeasurer(props);
+        AbstractSentenceSimilarityMeasurer ssm = new SentenceComplexSimilarityMeasurer(props);
         
         ArrayList< MeasureToken > testSet = getMeasureTokens(sampleFileName);
         
