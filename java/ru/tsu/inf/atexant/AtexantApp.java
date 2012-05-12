@@ -133,7 +133,7 @@ public class AtexantApp
         }
         
         if (args[0].equalsIgnoreCase("testSentencesSimilarity")) {
-            app.testWSentencesSimilarity(args[1]);
+            app.testSentencesSimilarity(args[1]);
             return;
         }
 
@@ -242,7 +242,7 @@ public class AtexantApp
         
     }
     
-    public void testWSentencesSimilarity(String sampleFileName) throws Exception {
+    public void testSentencesSimilarity(String sampleFileName) throws Exception {
         Properties props = new Properties();
         //α1 , β 1 , λ1 , and e are assigned with 0.65, 0.85, 0.90, 7 respectively.
 

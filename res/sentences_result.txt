@@ -38,9 +38,9 @@ An Asylum is a psychiatric hospital.
 A monk is a member of a male religious community that isusually separated from the outside world.
 hSim=0.0375 ourSim=0.08169899863031505 err=0.044198998630315046
 
-A graveyard is an area of land, sometimes near a church, wheredead people are buried.
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
 If you describe a place or situation as a madhouse you mean                                                                             that it is full of confusion and noise.
-hSim=0.0225 ourSim=0.1364806412854659 err=0.1139806412854659
+hSim=0.0225 ourSim=0.12259287328081013 err=0.10009287328081012
 
 Glass is a hard transparent substance that is used to makethings such as windows and bottles.
 A magician is a person who entertains people by doing magictricks.
@@ -95,8 +95,8 @@ In legends and fairy stories, a wizard is a man who has magicpowers.
 hSim=0.0325 ourSim=0.19647867257502 err=0.16397867257502
 
 A forest is a large area where trees grow close together.
-A graveyard is an area of land, sometimes near a church, wheredead people are buried.
-hSim=0.065 ourSim=0.2490255061272168 err=0.1840255061272168
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
+hSim=0.065 ourSim=0.2648357828070587 err=0.19983578280705871
 
 Food is what people and animals eat.
 A rooster is an adult male chicken.
@@ -243,8 +243,8 @@ A pillow is a rectangular cushion which you rest your head onwhen you are in bed
 hSim=0.5225 ourSim=0.16319186398096056 err=0.35930813601903944
 
 A cemetery is a place where dead people's bodies or their ashesare buried.
-A graveyard is an area of land, sometimes near a church, wheredead people are buried.
-hSim=0.7725 ourSim=0.3689827335750321 err=0.4035172664249679
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
+hSim=0.7725 ourSim=0.378347823544229 err=0.39415217645577094
 
 An automobile is a car.
 A car is a motor vehicle with room for a small number ofpassengers.
