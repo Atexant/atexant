@@ -4,7 +4,7 @@ import ru.tsu.inf.atexant.WikipediaPage;
 
 import java.lang.Iterable;
 
-public abstract class WikipediaPageStorage {
+public abstract class AbstractWikipediaPageStorage {
     public abstract void savePage(WikipediaPage p) throws Exception;
     public abstract WikipediaPage findById(int id) throws Exception;    
     public abstract Iterable< WikipediaPage > getAll() throws Exception;

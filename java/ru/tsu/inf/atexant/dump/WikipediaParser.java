@@ -19,12 +19,12 @@ public class WikipediaParser extends DefaultHandler {
     private boolean isInText;
     private String nodeBuffer;
     private Stack< String > elementsStack;
-    private WikipediaPageHandler pageHandler;
+    private AbstractWikipediaPageHandler pageHandler;
     
     private WikipediaPage currentPage;
     private FileChannel currentChannel =  null;
     
-    public WikipediaParser(WikipediaPageHandler handler, FileChannel channel) {
+    public WikipediaParser(AbstractWikipediaPageHandler handler, FileChannel channel) {
         isInPage = false;
         isInTitle = false;
         isInId = false;
@@ -149,7 +149,7 @@ public class WikipediaParser extends DefaultHandler {
     }
     
     
-    public static DefaultHandler newInstance(WikipediaPageHandler handler, FileChannel fc) {
+    public static DefaultHandler newInstance(AbstractWikipediaPageHandler handler, FileChannel fc) {
         return new WikipediaParser(handler, fc);
     }
     
@@ -181,7 +181,7 @@ public class WikipediaParser extends DefaultHandler {
         }
     }
     
-    public static void parse(String filename, WikipediaPageHandler handler, long offset) throws Exception {
+    public static void parse(String filename, AbstractWikipediaPageHandler handler, long offset) throws Exception {
         FileInputStream fis = new FileInputStream(filename);
         InputStream is = fis;
         
@@ -215,7 +215,7 @@ public class WikipediaParser extends DefaultHandler {
         reader.parse(new InputSource(is));
     }
     
-    public static void parse(String filename, WikipediaPageHandler handler) throws Exception {
+    public static void parse(String filename, AbstractWikipediaPageHandler handler) throws Exception {
         WikipediaParser.parse(filename, handler, 0);
     }
 

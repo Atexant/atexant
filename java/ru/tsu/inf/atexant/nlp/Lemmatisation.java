@@ -5,8 +5,13 @@ import edu.stanford.nlp.pipeline.*;
 import edu.stanford.nlp.util.*;
 import edu.stanford.nlp.ling.CoreAnnotations.*;
 import edu.stanford.nlp.ling.*;
+import edu.stanford.nlp.trees.GrammaticalStructure;
+import edu.stanford.nlp.trees.GrammaticalStructureFactory;
+import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
+import edu.stanford.nlp.trees.TreebankLanguagePack;
+import edu.stanford.nlp.trees.TypedDependency;
 
 public class Lemmatisation
 {
@@ -19,24 +24,30 @@ public class Lemmatisation
         pipeline = new StanfordCoreNLP(props);
     }
 
-    public void process(String text, Tree tree)
+    public List< Collection< TypedDependency > > getSentencesStructures(String text)
     {
-        // create an empty Annotation just with the given text
         Annotation document = new Annotation(text);
-        // run all Annotators on this text
         pipeline.annotate(document);
-        // these are all the sentences in this document
-        // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+        
+        TreebankLanguagePack tlp = new PennTreebankLanguagePack();
+        GrammaticalStructureFactory grammaticalStructureFactory = tlp.grammaticalStructureFactory();
+        
+        Tree tree;
+        
+        List< Collection< TypedDependency > > result = new LinkedList< Collection< TypedDependency > >();
+        
         for(CoreMap sentence: sentences) 
 	{
-	    // traversing the words in the current sentence
-	    // a CoreLabel is a CoreMap with additional token-specific methods
 	    tree = sentence.get(TreeAnnotation.class);
+            
+            GrammaticalStructure structure = grammaticalStructureFactory.newGrammaticalStructure(tree);
+            
+            result.add(structure.typedDependenciesCollapsedTree());
         }
         
-  
+        return result;
     }
     
-    
+     
 }

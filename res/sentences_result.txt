@@ -1,0 +1,260 @@
+Cord is strong, thick string.
+A smile is the expression that you have on your face when youare pleased or amused, or when you are being friendly.
+hSim=0.01 ourSim=0.07809042405761484 err=0.06809042405761484
+
+A rooster is an adult male chicken.
+A voyage is a long journey on a ship or in a spacecraft.
+hSim=0.005 ourSim=0.17381990771924666 err=0.16881990771924665
+
+Noon is 12 o'clock in the middle of the day.
+String is thin rope made of twisted threads, used for tyingthings together or tying up parcels.
+hSim=0.0125 ourSim=0.03380052456210816 err=0.021300524562108156
+
+Fruit or a fruit is something which grows on a tree or bush andwhich contains seeds or a stone covered by a substance thatyou can eat.
+A furnace is a container or enclosed space in which a very hotfire is made, for example to melt metal, burn rubbish orproduce steam.
+hSim=0.0475 ourSim=0.13951175737402116 err=0.09201175737402116
+
+An autograph is the signature of someone famous which isspecially written for a fan to keep.
+The shores or shore of a sea, lake or wide river is the landalong the edge of it.
+hSim=0.005 ourSim=0.07037359987245653 err=0.06537359987245653
+
+An automobile is a car.
+In legends and fairy stories, a wizard is a man who has magicpowers.
+hSim=0.02 ourSim=0.11383250976468831 err=0.09383250976468831
+
+A mound of something is a large rounded pile of it.
+A stove is a piece of equipment which provides heat, either forcooking or for heating a room.
+hSim=0.005 ourSim=0.08097204924453313 err=0.07597204924453313
+
+A grin is a broad smile.
+An implement is a tool or other piece of equipment.
+hSim=0.005 ourSim=0.06640372121607291 err=0.06140372121607291
+
+An Asylum is a psychiatric hospital.
+Fruit or a fruit is something which grows on a tree or bush andwhich contains seeds or a stone covered by a substance thatyou can eat.
+hSim=0.005 ourSim=0.04598453674098353 err=0.04098453674098353
+
+An Asylum is a psychiatric hospital.
+A monk is a member of a male religious community that isusually separated from the outside world.
+hSim=0.0375 ourSim=0.08169899863031505 err=0.044198998630315046
+
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
+If you describe a place or situation as a madhouse you mean                                                                             that it is full of confusion and noise.
+hSim=0.0225 ourSim=0.12259287328081013 err=0.10009287328081012
+
+Glass is a hard transparent substance that is used to makethings such as windows and bottles.
+A magician is a person who entertains people by doing magictricks.
+hSim=0.0075 ourSim=0.06428868314596692 err=0.05678868314596692
+
+A boy is a child who will grow up to be a man.
+A rooster is an adult male chicken.
+hSim=0.1075 ourSim=0.46929479589304507 err=0.3617947958930451
+
+A cushion is a fabric case filled with soft material, which youput on a seat to make it more comfortable.
+A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.
+hSim=0.0525 ourSim=0.11990071508642769 err=0.0674007150864277
+
+A monk is a member of a male religious community that isusually separated from the outside world.
+A slave is someone who is the property of another person andhas to work for that person.
+hSim=0.045 ourSim=0.21719473545997772 err=0.1721947354599777
+
+An Asylum is a psychiatric hospital.
+A cemetery is a place where dead people's bodies or their ashesare buried.
+hSim=0.105 ourSim=0.08853485905565892 err=0.01646514094434108
+
+The coast is an area of land that is next to the sea.
+A forest is a large area where trees grow close together.
+hSim=0.0475 ourSim=0.29986241824602555 err=0.25236241824602557
+
+A grin is a broad smile.
+A lad is a young man or boy.
+hSim=0.0125 ourSim=0.20774503094521246 err=0.19524503094521245
+
+The shores or shore of a sea, lake or wide river is the landalong the edge of it.
+Woodland is land with a lot of trees.
+hSim=0.0825 ourSim=0.11099302578029656 err=0.028493025780296555
+
+A monk is a member of a male religious community that isusually separated from the outside world.
+In ancient times, an oracle was a priest or priestess who madestatements about future events or about the truth.
+hSim=0.1125 ourSim=0.0852273653730428 err=0.0272726346269572
+
+A boy is a child who will grow up to be a man.
+A sage is a person who is regarded as being very wise.
+hSim=0.0425 ourSim=0.3341735226829416 err=0.2916735226829416
+
+An automobile is a car.
+A cushion is a fabric case filled with soft material, which youput on a seat to make it more comfortable.
+hSim=0.02 ourSim=0.1775439069529447 err=0.1575439069529447
+
+A mound of something is a large rounded pile of it.
+The shores or shore of a sea, lake or wide river is the landalong the edge of it.
+hSim=0.035 ourSim=0.13604687641230992 err=0.10104687641230992
+
+A lad is a young man or boy.
+In legends and fairy stories, a wizard is a man who has magicpowers.
+hSim=0.0325 ourSim=0.19647867257502 err=0.16397867257502
+
+A forest is a large area where trees grow close together.
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
+hSim=0.065 ourSim=0.2648357828070587 err=0.19983578280705871
+
+Food is what people and animals eat.
+A rooster is an adult male chicken.
+hSim=0.055 ourSim=0.1788145958012976 err=0.12381459580129761
+
+A cemetery is a place where dead people's bodies or their ashesare buried.
+Woodland is land with a lot of trees.
+hSim=0.0375 ourSim=0.11172674097426666 err=0.07422674097426665
+
+The shores or shore of a sea, lake or wide river is the landalong the edge of it.
+A voyage is a long journey on a ship or in a spacecraft.
+hSim=0.0575 ourSim=0.07026965433451746 err=0.012769654334517454
+
+A bird is a creature with feathers and wings, females lay eggsand most birds can fly.
+Woodland is land with a lot of trees.
+hSim=0.0125 ourSim=0.22625589525108536 err=0.21375589525108535
+
+The coast is an area of land that is next to the sea.
+A hill is an area of land that is higher than the land thatsurrounds it.
+hSim=0.1 ourSim=0.43627625053518165 err=0.3362762505351816
+
+A furnace is a container or enclosed space in which a very hotfire is made, for example to melt metal, burn rubbish orproduce steam.
+An implement is a tool or other piece of equipment.
+hSim=0.05 ourSim=0.1418896693354835 err=0.0918896693354835
+
+A crane is a large machine that moves heavy things by liftingthem in the air.
+A rooster is an adult male chicken.
+hSim=0.02 ourSim=0.13122018697627869 err=0.11122018697627868
+
+A hill is an area of land that is higher than the land thatsurrounds it.
+Woodland is land with a lot of trees.
+hSim=0.145 ourSim=0.4763066792992361 err=0.3313066792992361
+
+A car is a motor vehicle with room for a small number ofpassengers.
+When you make a journey, you travel from one place toanother.
+hSim=0.0725 ourSim=0.02218951434230882 err=0.050310485657691174
+
+A cemetery is a place where dead people's bodies or their ashesare buried.
+A mound of something is a large rounded pile of it.
+hSim=0.0575 ourSim=0.07813855288426624 err=0.02063855288426624
+
+Glass is a hard transparent substance that is used to makethings such as windows and bottles.
+A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.
+hSim=0.1075 ourSim=0.13968095208339348 err=0.032180952083393485
+
+A magician is a person who entertains people by doing magictricks.
+In ancient times, an oracle was a priest or priestess who madestatements about future events or about the truth.
+hSim=0.13 ourSim=0.07241838031292011 err=0.057581619687079894
+
+A crane is a large machine that moves heavy things by liftingthem in the air.
+An implement is a tool or other piece of equipment.
+hSim=0.2225 ourSim=0.16316731558593325 err=0.05933268441406675
+
+Your brother is a boy or a man who has the same parents asyou.
+A lad is a young man or boy.
+hSim=0.1275 ourSim=0.3649228685178561 err=0.2374228685178561
+
+A sage is a person who is regarded as being very wise.
+In legends and fairy stories, a wizard is a man who has magicpowers.
+hSim=0.1525 ourSim=0.12253817573664635 err=0.029961824263353642
+
+In ancient times, an oracle was a priest or priestess who madestatements about future events or about the truth.
+A sage is a person who is regarded as being very wise.
+hSim=0.2825 ourSim=0.13628182148301904 err=0.14621817851698093
+
+A bird is a creature with feathers and wings, females lay eggsand most birds can fly.
+A crane is a large machine that moves heavy things by liftingthem in the air.
+hSim=0.035 ourSim=0.1838284000755565 err=0.1488284000755565
+
+A bird is a creature with feathers and wings, females lay eggsand most birds can fly.
+A cock is an adult male chicken.
+hSim=0.1625 ourSim=0.46504208095563443 err=0.3025420809556344
+
+Food is what people and animals eat.
+Fruit or a fruit is something which grows on a tree or bush andwhich contains seeds or a stone covered by a substance thatyou can eat.
+hSim=0.2425 ourSim=0.1208154688662052 err=0.1216845311337948
+
+Your brother is a boy or a man who has the same parents asyou.
+A monk is a member of a male religious community that isusually separated from the outside world.
+hSim=0.045 ourSim=0.2533899031319038 err=0.2083899031319038
+
+An Asylum is a psychiatric hospital.
+If you describe a place or situation as a madhouse you meanthat it is full of confusion and noise.
+hSim=0.215 ourSim=0.05549144766002672 err=0.15950855233997327
+
+A furnace is a container or enclosed space in which a very hotfire is made, for example to melt metal, burn rubbish orproduce steam.
+A stove is a piece of equipment which provides heat, either forcooking or for heating a room.
+hSim=0.3475 ourSim=0.11439778155264892 err=0.23310221844735107
+
+A magician is a person who entertains people by doing magictricks.
+In legends and fairy stories, a wizard is a man who has magicpowers.
+hSim=0.355 ourSim=0.11266622070272328 err=0.2423337792972767
+
+A hill is an area of land that is higher than the land thatsurrounds it.
+A mound of something is a large rounded pile of it.
+hSim=0.2925 ourSim=0.30337347852661245 err=0.010873478526612468
+
+Cord is strong, thick string.
+String is thin rope made of twisted threads, used for tyingthings together or tying up parcels.
+hSim=0.47 ourSim=0.27936934797560975 err=0.19063065202439022
+
+Glass is a hard transparent substance that is used to makethings such as windows and bottles.
+A tumbler is a drinking glass with straight sides.
+hSim=0.1375 ourSim=0.3247616135669759 err=0.1872616135669759
+
+A grin is a broad smile.
+A smile is the expression that you have on your face when youare pleased or amused, or when you are being friendly.
+hSim=0.485 ourSim=0.15720421411934105 err=0.32779578588065894
+
+In former times, serfs were a class of people who had to workon a particular person's land and could not leave without thatperson's permission.
+A slave is someone who is the property of another person andhas to work for that person.
+hSim=0.4825 ourSim=0.20857600230987977 err=0.2739239976901202
+
+A When you make a journey, you travel from one place toanother.
+A voyage is a long journey on a ship or in a spacecraft.
+hSim=0.36 ourSim=0.02401496448171591 err=0.33598503551828407
+
+An autograph is the signature of someone famous which isspecially written for a fan to keep.
+Your signature is your name, written in your own characteristicway, often at the end of a document to indicate that you wrotethe document or that you agree with what it says.
+hSim=0.405 ourSim=0.09684480376873511 err=0.3081551962312649
+
+The coast is an area of land that is next to the sea.
+The shores or shore of a sea, lake or wide river is the landalong the edge of it.
+hSim=0.5875 ourSim=0.3194764297195431 err=0.2680235702804569
+
+A forest is a large area where trees grow close together.
+Woodland is land with a lot of trees.
+hSim=0.6275 ourSim=0.6483276496566268 err=0.020827649656626868
+
+An implement is a tool or other piece of equipment.
+A tool is any instrument or simple piece of equipment that youhold in your hands and use to do a particular kind of work.
+hSim=0.59 ourSim=0.31880631090877526 err=0.2711936890912247
+
+A cock is an adult male chicken.
+A rooster is an adult male chicken.
+hSim=0.8625 ourSim=0.9666666666666652 err=0.10416666666666519
+
+A boy is a child who will grow up to be a man.
+A lad is a young man or boy.
+hSim=0.58 ourSim=0.6690116795946576 err=0.08901167959465761
+
+A cushion is a fabric case filled with soft material, which youput on a seat to make it more comfortable.
+A pillow is a rectangular cushion which you rest your head onwhen you are in bed.
+hSim=0.5225 ourSim=0.16319186398096056 err=0.35930813601903944
+
+A cemetery is a place where dead people's bodies or their ashesare buried.
+A graveyard is an area of land, sometimes near a church, where dead people are buried.
+hSim=0.7725 ourSim=0.378347823544229 err=0.39415217645577094
+
+An automobile is a car.
+A car is a motor vehicle with room for a small number ofpassengers.
+hSim=0.5575 ourSim=0.5150632854525901 err=0.04243671454740994
+
+Midday is 12 o'clock in the middle of the day.
+Noon is 12 o'clock in the middle of the day.
+hSim=0.955 ourSim=0.9857142857142867 err=0.030714285714286693
+
+A gem is a jewel or stone that is used in jewellery.
+A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.
+hSim=0.6525 ourSim=0.3569854627150984 err=0.29551453728490157
+
