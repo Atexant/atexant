@@ -13,7 +13,7 @@ Glass is a hard transparent substance that is used to makethings such as windows
 A boy is a child who will grow up to be a man.|A rooster is an adult male chicken.|0.43
 A cushion is a fabric case filled with soft material, which youput on a seat to make it more comfortable.|A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.|0.21
 A monk is a member of a male religious community that isusually separated from the outside world.|A slave is someone who is the property of another person andhas to work for that person.|0.18
-An Asylum is a psychiatric hospital.|A cemetery is a place where dead people's bodies or their ashesare buried.|0.42
+An Asylum is a psychiatric hospital.|A cemetery is a place where dead people's bodies or their ashes are buried.|0.42
 The coast is an area of land that is next to the sea.|A forest is a large area where trees grow close together.|0.19
 A grin is a broad smile.|A lad is a young man or boy.|0.05
 The shores or shore of a sea, lake or wide river is the landalong the edge of it.|Woodland is land with a lot of trees.|0.33
@@ -24,7 +24,7 @@ A mound of something is a large rounded pile of it.|The shores or shore of a sea
 A lad is a young man or boy.|In legends and fairy stories, a wizard is a man who has magicpowers.|0.13
 A forest is a large area where trees grow close together.|A graveyard is an area of land, sometimes near a church, where dead people are buried.|0.26
 Food is what people and animals eat.|A rooster is an adult male chicken.|0.22
-A cemetery is a place where dead people's bodies or their ashesare buried.|Woodland is land with a lot of trees.|0.15
+A cemetery is a place where dead people's bodies or their ashes are buried.|Woodland is land with a lot of trees.|0.15
 The shores or shore of a sea, lake or wide river is the landalong the edge of it.|A voyage is a long journey on a ship or in a spacecraft.|0.23
 A bird is a creature with feathers and wings, females lay eggsand most birds can fly.|Woodland is land with a lot of trees.|0.05
 The coast is an area of land that is next to the sea.|A hill is an area of land that is higher than the land thatsurrounds it.|0.40
@@ -32,7 +32,7 @@ A furnace is a container or enclosed space in which a very hotfire is made, for 
 A crane is a large machine that moves heavy things by liftingthem in the air.|A rooster is an adult male chicken.|0.08
 A hill is an area of land that is higher than the land thatsurrounds it.|Woodland is land with a lot of trees.|0.58
 A car is a motor vehicle with room for a small number ofpassengers.|When you make a journey, you travel from one place toanother.|0.29
-A cemetery is a place where dead people's bodies or their ashesare buried.|A mound of something is a large rounded pile of it.|0.23
+A cemetery is a place where dead people's bodies or their ashes are buried.|A mound of something is a large rounded pile of it.|0.23
 Glass is a hard transparent substance that is used to makethings such as windows and bottles.|A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.|0.43
 A magician is a person who entertains people by doing magictricks.|In ancient times, an oracle was a priest or priestess who madestatements about future events or about the truth.|0.52
 A crane is a large machine that moves heavy things by liftingthem in the air.|An implement is a tool or other piece of equipment.|0.89
@@ -59,7 +59,7 @@ An implement is a tool or other piece of equipment.|A tool is any instrument or 
 A cock is an adult male chicken.|A rooster is an adult male chicken.|3.45
 A boy is a child who will grow up to be a man.|A lad is a young man or boy.|2.32
 A cushion is a fabric case filled with soft material, which youput on a seat to make it more comfortable.|A pillow is a rectangular cushion which you rest your head onwhen you are in bed.|2.09
-A cemetery is a place where dead people's bodies or their ashesare buried.|A graveyard is an area of land, sometimes near a church, where dead people are buried.|3.09
+A cemetery is a place where dead people's bodies or their ashes are buried.|A graveyard is an area of land, sometimes near a church, where dead people are buried.|3.09
 An automobile is a car.|A car is a motor vehicle with room for a small number ofpassengers.|2.23
 Midday is 12 o'clock in the middle of the day.|Noon is 12 o'clock in the middle of the day.|3.82
 A gem is a jewel or stone that is used in jewellery.|A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.|2.61

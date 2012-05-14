@@ -59,8 +59,8 @@ A slave is someone who is the property of another person andhas to work for that
 hSim=0.045 ourSim=0.21719473545997772 err=0.1721947354599777
 
 An Asylum is a psychiatric hospital.
-A cemetery is a place where dead people's bodies or their ashesare buried.
-hSim=0.105 ourSim=0.08853485905565892 err=0.01646514094434108
+A cemetery is a place where dead people's bodies or their ashes are buried.
+hSim=0.105 ourSim=0.113029923185165 err=0.008029923185165003
 
 The coast is an area of land that is next to the sea.
 A forest is a large area where trees grow close together.
@@ -102,9 +102,9 @@ Food is what people and animals eat.
 A rooster is an adult male chicken.
 hSim=0.055 ourSim=0.1788145958012976 err=0.12381459580129761
 
-A cemetery is a place where dead people's bodies or their ashesare buried.
+A cemetery is a place where dead people's bodies or their ashes are buried.
 Woodland is land with a lot of trees.
-hSim=0.0375 ourSim=0.11172674097426666 err=0.07422674097426665
+hSim=0.0375 ourSim=0.2599914376915735 err=0.2224914376915735
 
 The shores or shore of a sea, lake or wide river is the landalong the edge of it.
 A voyage is a long journey on a ship or in a spacecraft.
@@ -134,9 +134,9 @@ A car is a motor vehicle with room for a small number ofpassengers.
 When you make a journey, you travel from one place toanother.
 hSim=0.0725 ourSim=0.02218951434230882 err=0.050310485657691174
 
-A cemetery is a place where dead people's bodies or their ashesare buried.
+A cemetery is a place where dead people's bodies or their ashes are buried.
 A mound of something is a large rounded pile of it.
-hSim=0.0575 ourSim=0.07813855288426624 err=0.02063855288426624
+hSim=0.0575 ourSim=0.09876376502950746 err=0.04126376502950745
 
 Glass is a hard transparent substance that is used to makethings such as windows and bottles.
 A jewel is a precious stone used to decorate valuable thingsthat you wear, such as rings or necklaces.
@@ -242,9 +242,9 @@ A cushion is a fabric case filled with soft material, which youput on a seat to 
 A pillow is a rectangular cushion which you rest your head onwhen you are in bed.
 hSim=0.5225 ourSim=0.16319186398096056 err=0.35930813601903944
 
-A cemetery is a place where dead people's bodies or their ashesare buried.
+A cemetery is a place where dead people's bodies or their ashes are buried.
 A graveyard is an area of land, sometimes near a church, where dead people are buried.
-hSim=0.7725 ourSim=0.378347823544229 err=0.39415217645577094
+hSim=0.7725 ourSim=0.5087436716435068 err=0.2637563283564932
 
 An automobile is a car.
 A car is a motor vehicle with room for a small number ofpassengers.
