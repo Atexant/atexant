@@ -8,7 +8,7 @@ located at: git://github.com/Atexant/atexant.git
 
 Requirements
 
-You need the Java run-time environment 1.6 or higher, Ant tool , the
+You need the Java run-time environment 1.6 or higher, Ant tool, the
 Wikipedia articles dump and some additional utilities to be able to
 compile and run this project. The main English Wikipedia articles dump
 can be downloaded from:
